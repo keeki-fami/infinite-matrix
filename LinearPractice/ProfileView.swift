@@ -19,15 +19,6 @@ struct ProfileView: View {
     var body: some View {
         ZStack {
             FloatingComponentView()
-//                .background {
-//                    LinearGradient(stops: [
-//                        .init(color: .clear, location: 0.0),
-//                        .init(color: .clear, location: 0.7),
-//                        .init(color: .yellow.opacity(0.5), location: 0.8),
-//                        .init(color: .yellow, location: 1.0)
-//                    ], startPoint: .top, endPoint: .bottom)
-//                    .ignoresSafeArea()
-//                }
             NavigationStack {
                 VStack {
                     if let playerImage = playerImage {

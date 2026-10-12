@@ -12,6 +12,7 @@ import GameKit
 import Foundation
 
 
+// GameCenterの処理全般
 @Observable
 final class GameCenterManager: NSObject {
     

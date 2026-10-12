@@ -8,6 +8,7 @@
 import SwiftUI
 
 
+// 行列の計算の種類
 enum CalculateType {
     case add
     case sub
@@ -19,11 +20,13 @@ struct MatrixValue: Identifiable, Hashable {
     var id = UUID()
 }
 
+
 struct Matrix: Hashable {
     var rowDim = 3
     var colDim = 3
     var matrix: [[MatrixValue]] = Array(repeating: [.init(value: 0), .init(value: 0), .init(value: 0), .init(value: 0), .init(value: 0)], count: 5)
 }
+
 
 struct MatrixSet: Identifiable, Hashable {
     var id = UUID()
@@ -35,6 +38,7 @@ struct MatrixSet: Identifiable, Hashable {
     var answerPointY: Int = 0
 }
 
+// 行列として表示する数値、回答の生成、正誤判定
 @Observable
 class MatrixGenerator {
 //    var rowDim = 3

@@ -7,33 +7,7 @@
 
 import SwiftUI
 
-// View:
-//struct MatrixHomeView: View {
-//    var generator: MatrixGenerator = MatrixGenerator()
-//    var body: some View {
-//        VStack {
-//            HStack {
-//                MatrixGridView(matrix: generator.matrixset.matrix1)
-////                operatorText
-//                MatrixGridView(matrix: generator.matrixset.matrix2)
-//            }
-//            HStack {
-//                cellText("=")
-//                MatrixAnswerView(
-//                    matrix: generator.matrixset.matrixAnswer,
-//                    answerX: generator.matrixset.answerPointX,
-//                    answerY: generator.matrixset.answerPointY
-//                )
-//            }
-//        }
-//        .onAppear() {
-//            generator.generate()
-//        }
-//        
-//    }
-//    
-//}
-
+// View: 行列の表示
 struct MatrixGridView: View {
     let matrix: Matrix
     var body: some View {
@@ -50,11 +24,13 @@ struct MatrixGridView: View {
     }
 }
 
+// View: 行列の要素の表示
 func cellText(_ text: String) -> some View {
     Text(text)
         .frame(width: 30, height: 30)
 }
 
+// View: 行列の回答の表示
 struct MatrixAnswerView: View {
     let matrix: Matrix
     let answerX: Int
@@ -78,7 +54,3 @@ struct MatrixAnswerView: View {
         }
     }
 }
-
-//#Preview {
-//    MatrixHomeView()
-//}
