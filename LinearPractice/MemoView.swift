@@ -9,6 +9,7 @@
 import SwiftUI
 import PencilKit
 
+// View: メモを表示
 struct MemoView: UIViewRepresentable {
     @Binding var memoView: PKCanvasView
     @Binding var isKeyboard: Bool
@@ -24,4 +25,5 @@ struct MemoView: UIViewRepresentable {
     func updateUIView(_ uiView: UIViewType, context: Context) {
         toolPicker.setVisible(!isKeyboard, forFirstResponder: memoView)
     }
+    
 }

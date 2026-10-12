@@ -1,5 +1,5 @@
 {
-  "originHash" : "25b1242391b04bbbbfeaaa484e3dcf0161b0ff8c4d41116aa210b7f4f67567a6",
+  "originHash" : "160fe5375347f5026457960344d1115cde77e994509361a9930fd39050570201",
   "pins" : [
     {
       "identity" : "appversionmonitorswiftui",
@@ -11,12 +11,30 @@
       }
     },
     {
+      "identity" : "floatingnumbersbackground",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/keeki-fami/FloatingNumbersBackground",
+      "state" : {
+        "revision" : "87c590db12d0907b8ab0efce09b62929db6e411e",
+        "version" : "0.1.0"
+      }
+    },
+    {
       "identity" : "numberpadview",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/keeki-fami/NumberPadView",
       "state" : {
         "revision" : "066fd92de225fb43964ccd764b47b7b2458090df",
         "version" : "1.2.1"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections",
+      "state" : {
+        "revision" : "3b69cedbaa49957e97c092ae400bb57602ef941f",
+        "version" : "1.7.2"
       }
     }
   ],

@@ -7,31 +7,32 @@
 
 import SwiftUI
 
-struct MatrixHomeView: View {
-    var generator: MatrixGenerator = MatrixGenerator()
-    var body: some View {
-        VStack {
-            HStack {
-                MatrixGridView(matrix: generator.matrixset.matrix1)
-//                operatorText
-                MatrixGridView(matrix: generator.matrixset.matrix2)
-            }
-            HStack {
-                cellText("=")
-                MatrixAnswerView(
-                    matrix: generator.matrixset.matrixAnswer,
-                    answerX: generator.matrixset.answerPointX,
-                    answerY: generator.matrixset.answerPointY
-                )
-            }
-        }
-        .onAppear() {
-            generator.generate()
-        }
-        
-    }
-    
-}
+// View:
+//struct MatrixHomeView: View {
+//    var generator: MatrixGenerator = MatrixGenerator()
+//    var body: some View {
+//        VStack {
+//            HStack {
+//                MatrixGridView(matrix: generator.matrixset.matrix1)
+////                operatorText
+//                MatrixGridView(matrix: generator.matrixset.matrix2)
+//            }
+//            HStack {
+//                cellText("=")
+//                MatrixAnswerView(
+//                    matrix: generator.matrixset.matrixAnswer,
+//                    answerX: generator.matrixset.answerPointX,
+//                    answerY: generator.matrixset.answerPointY
+//                )
+//            }
+//        }
+//        .onAppear() {
+//            generator.generate()
+//        }
+//        
+//    }
+//    
+//}
 
 struct MatrixGridView: View {
     let matrix: Matrix
@@ -65,6 +66,7 @@ struct MatrixAnswerView: View {
                     ForEach(matrix.matrix[i].indices, id: \.self) { j in
                         if i == answerX && j == answerY {
                             cellText("?")
+                                .background(.yellow)
                         } else {
                             cellText("\(matrix.matrix[i][j].value)")
                                 .id(matrix.matrix[i][j].id)
@@ -77,6 +79,6 @@ struct MatrixAnswerView: View {
     }
 }
 
-#Preview {
-    MatrixHomeView()
-}
+//#Preview {
+//    MatrixHomeView()
+//}

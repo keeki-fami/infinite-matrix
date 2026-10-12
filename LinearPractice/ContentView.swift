@@ -29,46 +29,103 @@ struct ContentView: View {
     @State var gameCenterManager = GameCenterManager.shared
     @State var selectedPhase = [0, 1]
     @State private var isKeyboard = true
+    @State private var hSize1 = 0.0
+    @State private var hSize2 = 0.0
+    @State private var hSize3 = 0.0
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
                 Group {
-                    ScrollView {
+//                    ScrollView {
+                    VStack{
                         VStack {
-                            HStack {
+                            HStack(spacing: 0) {
+                                Image("left")
+                                    .resizable()
+                                    .frame(width: 10, height: hSize1)
                                 MatrixGridView(matrix: generator.matrixset.matrix1)
-                                operatorText
+                                    .background(GeometryReader { geometry in
+                                        Color.clear
+                                            .onChange(of: geometry.size.height) {
+                                                withAnimation {
+                                                    hSize1 = geometry.size.height
+                                                }
+                                                print(geometry.size)
+                                            }
+                                            .onAppear {
+                                                hSize1 = geometry.size.height
+                                            }
+                                    })
+                                Image("right")
+                                    .resizable()
+                                    .frame(width: 10, height: hSize1)
+                                
+                                if generator.matrixset.calculateType != .mul {
+                                    operatorText
+                                        .padding()
+                                } else {
+                                    Text(" ")
+                                }
+                                
+                                Image("left")
+                                    .resizable()
+                                    .frame(width: 10, height: hSize2)
                                 MatrixGridView(matrix: generator.matrixset.matrix2)
+                                    .background(GeometryReader { geometry in
+                                        Color.clear
+                                            .onChange(of: geometry.size.height) {
+                                                withAnimation {
+                                                    hSize2 = geometry.size.height
+                                                }
+                                                print(geometry.size)
+                                            }
+                                            .onAppear {
+                                                hSize2 = geometry.size.height
+                                            }
+                                    })
+                                Image("right")
+                                    .resizable()
+                                    .frame(width: 10, height: hSize2)
                             }
                             HStack {
                                 cellText("=")
+                                Image("left")
+                                    .resizable()
+                                    .frame(width: 10, height: hSize3)
                                 MatrixAnswerView(
                                     matrix: generator.matrixset.matrixAnswer,
                                     answerX: generator.matrixset.answerPointX,
                                     answerY: generator.matrixset.answerPointY
                                 )
+                                .background(GeometryReader { geometry in
+                                    Color.clear
+                                        .onChange(of: geometry.size.height) {
+                                            withAnimation {
+                                                hSize3 = geometry.size.height
+                                            }
+                                            print(geometry.size)
+                                        }
+                                        .onAppear {
+                                            hSize3 = geometry.size.height
+                                        }
+                                })
+                                Image("right")
+                                    .resizable()
+                                    .frame(width: 10, height: hSize3)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        Rectangle().fill(.clear).frame(width: 10, height: 20)
                     }
                     .overlay(alignment: .bottom) {
                         HStack {
-                            Text("? = ")
+//                            Text("? = ")
                             Text("\(generator.ansString.isEmpty ? "   " : generator.ansString)")
+                                .font(Font.title)
                                 .background(Color(red: 217/255, green: 217/255, blue: 217/255))
                         }
                         .frame(maxWidth: .infinity, maxHeight: 40)
-                        .background(
-                            .linearGradient(
-                                stops: [
-                                    .init(color: .clear, location: 0.0),
-                                    .init(color: .white.opacity(0.7), location: 0.2),
-                                    .init(color: .white, location: 1.0)
-                                ],
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                        )
+                        .padding()
                         .keyframeAnimator(initialValue: 0.0, trigger: generator.checkAnimation) { content, value in
                             content.offset(x: value)
                         } keyframes: { _ in
@@ -89,13 +146,25 @@ struct ContentView: View {
                     }
                     .overlay(alignment: .bottomTrailing) {
                         Button(action: {
-                            isKeyboard.toggle()
+                            
                         }, label: {
-                            Circle()
-                                .fill(Color.gray)
-                                .frame(width: 40, height: 40)
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color(red: 217/255, green: 217/255, blue: 217/255))
+                                    .frame(width: 40, height: 40)
+                                Image(systemName: isKeyboard ? "pencil.tip" : "plus.forwardslash.minus")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 20, height: 20)
+                            }
                         })
-                        .padding(.trailing)
+                        .buttonStyle(SubButtonStyle(onTouchUp: {
+                            isKeyboard.toggle()
+                            if isKeyboard {
+                                memoView.drawing = PKDrawing()
+                            }
+                        }))
+                        .padding()
                     }
                     
                 }
@@ -108,6 +177,7 @@ struct ContentView: View {
                     })
                 } else {
                     MemoView(memoView: $memoView, isKeyboard: $isKeyboard)
+                        .shadow(color: .gray.opacity(0.25), radius: 10, x: 0, y: -10)
                 }
 //                KeyBoard(generator: generator)
             }
@@ -185,23 +255,39 @@ struct ContentView: View {
                     Menu {
                         NavigationLink(destination: {
                             ProfileView(manager: $gameCenterManager)
+                                .onAppear() {
+                                    let data = UserDefaults.standard.integer(forKey: "success")
+                                    gameCenterManager.submitScore(data, to: "com.LinearPractice.keekifami.HighScore")
+                                    let comboNumber = UserDefaults.standard.integer(forKey: "combo")
+                                    gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                                }
                         }, label: {
-                            Text("Profile")
+                            Label("プロフィール", systemImage: "person")
                         })
                         
-                        Button("show Ranking") {
+                        Button(action: {
+                            let data = UserDefaults.standard.integer(forKey: "success")
+                            gameCenterManager.submitScore(data, to: "com.LinearPractice.keekifami.HighScore")
+                            let comboNumber = UserDefaults.standard.integer(forKey: "combo")
+                            gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                            
                             gameCenterManager.showLeaderboards()
-                        }
+                        }, label: {
+                            Label("ランキング", systemImage: "trophy")
+                        })
                         
                     } label: {
+//                        RoundedRectangle(cornerRadius: 5)
+//                            .fill(Color(red: 217/255, green: 217/255, blue: 217/255))
+//                            .frame(width: 40, height: 40)
+//                            .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 2)
+//                            .overlay {
+//                                Image(systemName: "info")
+//                            }
                         Image(systemName: "info")
-                    } primaryAction: {
-                        let data = UserDefaults.standard.integer(forKey: "success")
-                        gameCenterManager.submitScore(data, to: "com.LinearPractice.keekifami.HighScore")
-                        let comboNumber = UserDefaults.standard.integer(forKey: "combo")
-                        gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
                     }
                 }
+//                .sharedBackgroundVisibility(.hidden)
             }
         }
     }
@@ -210,7 +296,7 @@ struct ContentView: View {
             switch generator.matrixset.calculateType {
             case .add: return "+"
             case .sub: return "-"
-            default: return "*"
+            default: return ""
             }
         }
         return Text(op)
@@ -239,6 +325,24 @@ struct ContentView: View {
 //            generator.checkAnimation.toggle()
             
         }
+    }
+}
+struct SubButtonStyle: ButtonStyle {
+//    let onTouchDown: () -> Void
+    let onTouchUp: () -> Void
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+            .foregroundColor(.black)
+            .clipShape(
+                RoundedRectangle(cornerRadius: 5)
+            )
+            .shadow(color: .black.opacity( configuration.isPressed ? 0 : 0.5 ), radius: 1, x: 0, y: 2)
+            .onChange(of: configuration.isPressed) {before, after in
+                if before {
+                    onTouchUp()
+                }
+            }
     }
 }
 
