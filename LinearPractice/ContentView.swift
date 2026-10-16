@@ -17,21 +17,22 @@ extension Array {
     }
 }
 
+
+
 struct ContentView: View {
+    @State var contentViewModel: ContentViewModel = .init()
     @State var generator = MatrixGenerator()
     @State private var memoView = PKCanvasView()
     @State var text = ""
     @State var updateAlert = false
+    
     @AppStorage("failure") var failure: Int = 0
     @AppStorage("success") var success: Int = 0
     @AppStorage("combo") var combo_store: Int = 0
+    
     @Environment(\.scenePhase) var scenePhase
     @State var gameCenterManager = GameCenterManager.shared
-    @State var selectedPhase = [0, 1]
-    @State private var isKeyboard = true
-    @State private var hSize1 = 0.0
-    @State private var hSize2 = 0.0
-    @State private var hSize3 = 0.0
+    
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
@@ -40,78 +41,19 @@ struct ContentView: View {
                     VStack{
                         VStack {
                             HStack(spacing: 0) {
-                                Image("left")
-                                    .resizable()
-                                    .frame(width: 10, height: hSize1)
                                 MatrixGridView(matrix: generator.matrixset.matrix1)
-                                    .background(GeometryReader { geometry in
-                                        Color.clear
-                                            .onChange(of: geometry.size.height) {
-                                                withAnimation {
-                                                    hSize1 = geometry.size.height
-                                                }
-                                                print(geometry.size)
-                                            }
-                                            .onAppear {
-                                                hSize1 = geometry.size.height
-                                            }
-                                    })
-                                Image("right")
-                                    .resizable()
-                                    .frame(width: 10, height: hSize1)
                                 
-                                if generator.matrixset.calculateType != .mul {
-                                    operatorText
-                                        .padding()
-                                } else {
-                                    Text(" ")
-                                }
+                                OperatorText(type: generator.matrixset.calculateType)
                                 
-                                Image("left")
-                                    .resizable()
-                                    .frame(width: 10, height: hSize2)
                                 MatrixGridView(matrix: generator.matrixset.matrix2)
-                                    .background(GeometryReader { geometry in
-                                        Color.clear
-                                            .onChange(of: geometry.size.height) {
-                                                withAnimation {
-                                                    hSize2 = geometry.size.height
-                                                }
-                                                print(geometry.size)
-                                            }
-                                            .onAppear {
-                                                hSize2 = geometry.size.height
-                                            }
-                                    })
-                                Image("right")
-                                    .resizable()
-                                    .frame(width: 10, height: hSize2)
                             }
                             HStack {
                                 cellText("=")
-                                Image("left")
-                                    .resizable()
-                                    .frame(width: 10, height: hSize3)
                                 MatrixAnswerView(
                                     matrix: generator.matrixset.matrixAnswer,
                                     answerX: generator.matrixset.answerPointX,
                                     answerY: generator.matrixset.answerPointY
                                 )
-                                .background(GeometryReader { geometry in
-                                    Color.clear
-                                        .onChange(of: geometry.size.height) {
-                                            withAnimation {
-                                                hSize3 = geometry.size.height
-                                            }
-                                            print(geometry.size)
-                                        }
-                                        .onAppear {
-                                            hSize3 = geometry.size.height
-                                        }
-                                })
-                                Image("right")
-                                    .resizable()
-                                    .frame(width: 10, height: hSize3)
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -119,7 +61,6 @@ struct ContentView: View {
                     }
                     .overlay(alignment: .bottom) {
                         HStack {
-//                            Text("? = ")
                             Text("\(generator.ansString.isEmpty ? "   " : generator.ansString)")
                                 .font(Font.title)
                                 .background(Color(red: 217/255, green: 217/255, blue: 217/255))
@@ -152,15 +93,15 @@ struct ContentView: View {
                                 Rectangle()
                                     .fill(Color(red: 217/255, green: 217/255, blue: 217/255))
                                     .frame(width: 40, height: 40)
-                                Image(systemName: isKeyboard ? "pencil.tip" : "plus.forwardslash.minus")
+                                Image(systemName: contentViewModel.isKeyboard ? "pencil.tip" : "plus.forwardslash.minus")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 20, height: 20)
                             }
                         })
                         .buttonStyle(SubButtonStyle(onTouchUp: {
-                            isKeyboard.toggle()
-                            if isKeyboard {
+                            contentViewModel.togglePadView()
+                            if contentViewModel.isKeyboard {
                                 memoView.drawing = PKDrawing()
                             }
                         }))
@@ -170,16 +111,15 @@ struct ContentView: View {
                 }
                 .transition(.opacity)
                 
-                if isKeyboard {
+                if contentViewModel.isKeyboard {
                     NumberPadView("submit", text: $generator.ansString, action: {
                         let result = generator.checkAnswer()
                         handleCheckAnswer(result: result)
                     })
                 } else {
-                    MemoView(memoView: $memoView, isKeyboard: $isKeyboard)
+                    MemoView(memoView: $memoView, isKeyboard: $contentViewModel.isKeyboard)
                         .shadow(color: .gray.opacity(0.25), radius: 10, x: 0, y: -10)
                 }
-//                KeyBoard(generator: generator)
             }
             .alert(
                 "最新版があります",
@@ -211,12 +151,13 @@ struct ContentView: View {
                 }
                 
             }
-            .onChange(of: scenePhase) { oldPhase, newPhase in
+            .onChange(of: scenePhase, initial: false) {oldPhase, newPhase in
+                
                 if oldPhase == .background && newPhase == .active {
-                    generator.combo = combo_store
+//                    contentViewModel.combo = combo_store
                     generator.generate()
                 } else if newPhase == .active {
-                    generator.combo = combo_store
+//                    contentViewModel.combo = combo_store
                     GKAccessPoint.shared.isActive = false
                 }
                 
@@ -225,26 +166,28 @@ struct ContentView: View {
                     let comboNumber = UserDefaults.standard.integer(forKey: "combo")
                     gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
                 }
+                
             }
             .onAppear() {
                 gameCenterManager.initializeLocalPlayer()
+                
                 if gameCenterManager.isAuthenticated {
                     Task {
                         await gameCenterManager.checkDuration()
-                        generator.combo = combo_store
+                        contentViewModel.combo = combo_store
                     }
                 } else {
-                    generator.combo = combo_store
+                    contentViewModel.combo = combo_store
                 }
-                generator.combo = combo_store
-                    
+                
+                contentViewModel.combo = combo_store
             }
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(alignment: .bottom) {
-                        Text("\(generator.combo)")
+                        Text("\(contentViewModel.combo)")
                             .font(.custom("", size: 20))
-                            .contentTransition(.numericText(value: Double(generator.combo)))
+                            .contentTransition(.numericText(value: Double(contentViewModel.combo)))
                         Text("combo")
                     }
                     .fixedSize(horizontal: true, vertical: false)
@@ -277,29 +220,13 @@ struct ContentView: View {
                         })
                         
                     } label: {
-//                        RoundedRectangle(cornerRadius: 5)
-//                            .fill(Color(red: 217/255, green: 217/255, blue: 217/255))
-//                            .frame(width: 40, height: 40)
-//                            .shadow(color: .black.opacity(0.5), radius: 1, x: 0, y: 2)
-//                            .overlay {
-//                                Image(systemName: "info")
-//                            }
+
                         Image(systemName: "info")
                     }
                 }
-//                .sharedBackgroundVisibility(.hidden)
+
             }
         }
-    }
-    var operatorText: Text {
-        var op: String {
-            switch generator.matrixset.calculateType {
-            case .add: return "+"
-            case .sub: return "-"
-            default: return ""
-            }
-        }
-        return Text(op)
     }
     
     func handleCheckAnswer(result: Bool) {
@@ -307,9 +234,9 @@ struct ContentView: View {
         if result {
             // 正解したときに行う処理
             withAnimation {
-                generator.combo += 1
+                contentViewModel.combo += 1
             }
-            combo_store = generator.combo
+            combo_store = contentViewModel.combo
             success += 1
             generator.generate()
         } else {
@@ -320,7 +247,7 @@ struct ContentView: View {
             
             failure += 1
             combo_store = 0
-            generator.combo = 0
+            contentViewModel.combo = 0
             generator.ansString = ""
 //            generator.checkAnimation.toggle()
             
@@ -343,6 +270,26 @@ struct SubButtonStyle: ButtonStyle {
                     onTouchUp()
                 }
             }
+    }
+}
+
+func storeData() {
+    
+}
+
+struct OperatorText: View {
+    var type: CalculateType
+    var body: some View {
+        switch type {
+        case .add:
+            Text("+")
+                .padding()
+        case .sub:
+            Text("-")
+                .padding()
+        default:
+            Text("")
+        }
     }
 }
 

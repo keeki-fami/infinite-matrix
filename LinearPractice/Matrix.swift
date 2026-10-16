@@ -50,7 +50,6 @@ class MatrixGenerator {
     var matrixset: MatrixSet = .init()
 //    var answerPointX: Int = 0
 //    var answerPointY: Int = 0
-    var combo: Int = 0
     var ansString: String = ""
     var checkAnimation = false
     var successCounter = 0
