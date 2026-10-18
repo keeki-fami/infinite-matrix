@@ -49,10 +49,7 @@ open MatrixPractice.xcodeproj
 
 ## Tech Stack
 
-#### Development
-
-* Language: Swift
-* UI Framework: SwiftUI
+- [Zenn](https://zenn.dev/keeki/articles/177c5c7222887a)
 
 ## Contribution
 
