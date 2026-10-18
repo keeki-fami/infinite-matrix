@@ -146,7 +146,7 @@ struct MatrixProblemModel: Identifiable {
                 for j in 0..<right.column {
                     num = 0
                     for k in 0..<left.column {
-                        num = left.matrix[i][k].value + right.matrix[k][j].value
+                        num += left.matrix[i][k].value * right.matrix[k][j].value
                     }
                     answer[i][j] = num
                 }

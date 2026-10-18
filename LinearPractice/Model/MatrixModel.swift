@@ -34,7 +34,7 @@ struct MatrixModel: Identifiable {
         precondition((1...3).contains(row), "Matrix row count must be between 1 and 3.")
         precondition((1...3).contains(column), "Matrix column count must be between 1 and 3.")
         matrix = (0..<row).map { _ in
-            (0..<column).map { _ in MatrixValue(Int.random(in: 0...19)) }
+            (0..<column).map { _ in MatrixValue(Int.random(in: 0...10)) }
         }
     }
 

@@ -79,21 +79,21 @@ struct MatrixAnswerView: View {
                     
                 }
             }
+            .background(GeometryReader { geometry in
+                Color.clear
+                    .onChange(of: geometry.size.height) {
+                        withAnimation {
+                            hSize = geometry.size.height
+                        }
+                        print(geometry.size)
+                    }
+                    .onAppear {
+                        hSize = geometry.size.height
+                    }
+            })
             Image("right")
                 .resizable()
                 .frame(width: 10, height: hSize)
         }
-        .background(GeometryReader { geometry in
-            Color.clear
-                .onChange(of: geometry.size.height) {
-                    withAnimation {
-                        hSize = geometry.size.height
-                    }
-                    print(geometry.size)
-                }
-                .onAppear {
-                    hSize = geometry.size.height
-                }
-        })
     }
 }
