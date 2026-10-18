@@ -13,12 +13,28 @@
 		94AE78742FF8FAD100FF3610 /* AppVersionMonitorSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 94AE78732FF8FAD100FF3610 /* AppVersionMonitorSwiftUI */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9495CE4B308511A1001C1E89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94A12F972FE98E1E00CB341C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94A12F9E2FE98E1E00CB341C;
+			remoteInfo = LinearPractice;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		9495CE47308511A1001C1E89 /* LinearPracticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinearPracticeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9497C9C23072321000D2EBF7 /* GameCenterResources.gamekit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GameCenterResources.gamekit; sourceTree = "<group>"; };
 		94A12F9F2FE98E1E00CB341C /* LinearPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinearPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		9495CE48308511A1001C1E89 /* LinearPracticeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LinearPracticeTests;
+			sourceTree = "<group>";
+		};
 		94A12FA12FE98E1E00CB341C /* LinearPractice */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = LinearPractice;
@@ -27,6 +43,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9495CE44308511A1001C1E89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94A12F9C2FE98E1E00CB341C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,6 +68,7 @@
 			children = (
 				9497C9C23072321000D2EBF7 /* GameCenterResources.gamekit */,
 				94A12FA12FE98E1E00CB341C /* LinearPractice */,
+				9495CE48308511A1001C1E89 /* LinearPracticeTests */,
 				94A12FA02FE98E1E00CB341C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				94A12F9F2FE98E1E00CB341C /* LinearPractice.app */,
+				9495CE47308511A1001C1E89 /* LinearPracticeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +85,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9495CE46308511A1001C1E89 /* LinearPracticeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9495CE4D308511A1001C1E89 /* Build configuration list for PBXNativeTarget "LinearPracticeTests" */;
+			buildPhases = (
+				9495CE43308511A1001C1E89 /* Sources */,
+				9495CE44308511A1001C1E89 /* Frameworks */,
+				9495CE45308511A1001C1E89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9495CE4C308511A1001C1E89 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9495CE48308511A1001C1E89 /* LinearPracticeTests */,
+			);
+			name = LinearPracticeTests;
+			packageProductDependencies = (
+			);
+			productName = LinearPracticeTests;
+			productReference = 9495CE47308511A1001C1E89 /* LinearPracticeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		94A12F9E2FE98E1E00CB341C /* LinearPractice */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94A12FAA2FE98E2000CB341C /* Build configuration list for PBXNativeTarget "LinearPractice" */;
@@ -92,9 +140,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2650;
+				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
+					9495CE46308511A1001C1E89 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 94A12F9E2FE98E1E00CB341C;
+					};
 					94A12F9E2FE98E1E00CB341C = {
 						CreatedOnToolsVersion = 26.5;
 					};
@@ -120,11 +172,19 @@
 			projectRoot = "";
 			targets = (
 				94A12F9E2FE98E1E00CB341C /* LinearPractice */,
+				9495CE46308511A1001C1E89 /* LinearPracticeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9495CE45308511A1001C1E89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94A12F9D2FE98E1E00CB341C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -136,6 +196,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9495CE43308511A1001C1E89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94A12F9B2FE98E1E00CB341C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,7 +212,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9495CE4C308511A1001C1E89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94A12F9E2FE98E1E00CB341C /* LinearPractice */;
+			targetProxy = 9495CE4B308511A1001C1E89 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		9495CE4E308511A1001C1E89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LMUVG7YFCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TowaSakurada.LinearPracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinearPractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LinearPractice";
+			};
+			name = Debug;
+		};
+		9495CE4F308511A1001C1E89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LMUVG7YFCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TowaSakurada.LinearPracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinearPractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LinearPractice";
+			};
+			name = Release;
+		};
 		94A12FA82FE98E2000CB341C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -346,6 +463,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9495CE4D308511A1001C1E89 /* Build configuration list for PBXNativeTarget "LinearPracticeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9495CE4E308511A1001C1E89 /* Debug */,
+				9495CE4F308511A1001C1E89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		94A12F9A2FE98E1E00CB341C /* Build configuration list for PBXProject "LinearPractice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
