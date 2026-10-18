@@ -18,6 +18,7 @@ class ContentViewModel {
     var inputError: String?
     var success = 0
     var failure = 0
+    var updateAlert: Bool = false
 
     init() {
         combo = UserDefaults.standard.integer(forKey: "combo")
@@ -69,6 +70,10 @@ class ContentViewModel {
             self.userInput = ""
         }
 
+    }
+    
+    func doUpdate() {
+        self.updateAlert = true
     }
     
     func fromActiveToInactive() {

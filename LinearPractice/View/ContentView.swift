@@ -22,8 +22,6 @@ extension Array {
 struct ContentView: View {
     @State var contentViewModel: ContentViewModel = .init()
     @State private var memoView = PKCanvasView()
-    @State var text = ""
-    @State var updateAlert = false
     
     @AppStorage("failure") var failure: Int = 0
     @AppStorage("success") var success: Int = 0
@@ -114,7 +112,7 @@ struct ContentView: View {
             }
             .alert(
                 "最新版があります",
-                isPresented: $updateAlert
+                isPresented: $contentViewModel.updateAlert
             ) {
                 Button(role: .cancel) {
                     
@@ -136,9 +134,9 @@ struct ContentView: View {
             .appVersionMonitor(id: 6785983550) { status in
                 switch status {
                 case .updateAvailable:
-                    updateAlert = true
+                    contentViewModel.updateAlert = true
                 default:
-                    updateAlert = false
+                    contentViewModel.updateAlert = false
                 }
                 
             }
@@ -184,20 +182,20 @@ struct ContentView: View {
                         NavigationLink(destination: {
                             ProfileView(manager: $gameCenterManager)
                                 .onAppear() {
-                                    let data = UserDefaults.standard.integer(forKey: "success")
-                                    gameCenterManager.submitScore(data, to: "com.LinearPractice.keekifami.HighScore")
-                                    let comboNumber = UserDefaults.standard.integer(forKey: "combo")
-                                    gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                                    gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
+                                    gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                                    UserDefaults.standard.set(contentViewModel.success, forKey: "success")
+                                    UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
                                 }
                         }, label: {
                             Label("プロフィール", systemImage: "person")
                         })
                         
                         Button(action: {
-                            let data = UserDefaults.standard.integer(forKey: "success")
-                            gameCenterManager.submitScore(data, to: "com.LinearPractice.keekifami.HighScore")
-                            let comboNumber = UserDefaults.standard.integer(forKey: "combo")
-                            gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                            gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
+                            gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                            UserDefaults.standard.set(contentViewModel.success, forKey: "success")
+                            UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
                             
                             gameCenterManager.showLeaderboards()
                         }, label: {
@@ -205,7 +203,6 @@ struct ContentView: View {
                         })
                         
                     } label: {
-
                         Image(systemName: "info")
                     }
                 }
@@ -214,30 +211,6 @@ struct ContentView: View {
         }
     }
     
-//    func handleCheckAnswer(result: Bool) {
-//        generator.ansString = ""
-//        if result {
-//            // 正解したときに行う処理
-//            withAnimation {
-//                contentViewModel.combo += 1
-//            }
-//            combo_store = contentViewModel.combo
-//            success += 1
-//            generator.generate()
-//        } else {
-//            // 不正解になったときに行う処理
-//            // コンボをリセットする前に、コンボを送信する。
-//            let combo = UserDefaults.standard.integer(forKey: "combo")
-//            GameCenterManager.shared.submitScore(combo, to: "com.LinearPractice.keeki.WeeklyComboRanking")
-//            
-//            failure += 1
-//            combo_store = 0
-//            contentViewModel.combo = 0
-//            generator.ansString = ""
-////            generator.checkAnimation.toggle()
-//            
-//        }
-//    }
 }
 
 struct ProblemView: View {
