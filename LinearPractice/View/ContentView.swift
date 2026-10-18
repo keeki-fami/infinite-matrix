@@ -21,10 +21,7 @@ extension Array {
 
 struct ContentView: View {
     @State var contentViewModel: ContentViewModel = .init()
-    @State var generator = MatrixGenerator()
     @State private var memoView = PKCanvasView()
-    @State var text = ""
-    @State var updateAlert = false
     
     @AppStorage("failure") var failure: Int = 0
     @AppStorage("success") var success: Int = 0
@@ -40,20 +37,10 @@ struct ContentView: View {
 //                    ScrollView {
                     VStack{
                         VStack {
-                            HStack(spacing: 0) {
-                                MatrixGridView(matrix: generator.matrixset.matrix1)
-                                
-                                OperatorText(type: generator.matrixset.calculateType)
-                                
-                                MatrixGridView(matrix: generator.matrixset.matrix2)
-                            }
-                            HStack {
-                                cellText("=")
-                                MatrixAnswerView(
-                                    matrix: generator.matrixset.matrixAnswer,
-                                    answerX: generator.matrixset.answerPointX,
-                                    answerY: generator.matrixset.answerPointY
-                                )
+                            if let problem = contentViewModel.matrixProblem {
+                                ProblemView(problem: problem)
+                            } else {
+                                ProgressView()
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -61,13 +48,13 @@ struct ContentView: View {
                     }
                     .overlay(alignment: .bottom) {
                         HStack {
-                            Text("\(generator.ansString.isEmpty ? "   " : generator.ansString)")
+                            Text("\(contentViewModel.userInput.isEmpty ? "   " : contentViewModel.userInput)")
                                 .font(Font.title)
                                 .background(Color(red: 217/255, green: 217/255, blue: 217/255))
                         }
                         .frame(maxWidth: .infinity, maxHeight: 40)
                         .padding()
-                        .keyframeAnimator(initialValue: 0.0, trigger: generator.checkAnimation) { content, value in
+                        .keyframeAnimator(initialValue: 0.0, trigger: contentViewModel.checkAnimation) { content, value in
                             content.offset(x: value)
                         } keyframes: { _ in
                             KeyframeTrack {
@@ -112,9 +99,11 @@ struct ContentView: View {
                 .transition(.opacity)
                 
                 if contentViewModel.isKeyboard {
-                    NumberPadView("submit", text: $generator.ansString, action: {
-                        let result = generator.checkAnswer()
-                        handleCheckAnswer(result: result)
+                    NumberPadView("submit", text: $contentViewModel.userInput, action: {
+//                        let result = generator.checkAnswer()
+//                        handleCheckAnswer(result: result)
+                        
+                        contentViewModel.checkAnswer()
                     })
                 } else {
                     MemoView(memoView: $memoView, isKeyboard: $contentViewModel.isKeyboard)
@@ -123,7 +112,7 @@ struct ContentView: View {
             }
             .alert(
                 "最新版があります",
-                isPresented: $updateAlert
+                isPresented: $contentViewModel.updateAlert
             ) {
                 Button(role: .cancel) {
                     
@@ -145,26 +134,22 @@ struct ContentView: View {
             .appVersionMonitor(id: 6785983550) { status in
                 switch status {
                 case .updateAvailable:
-                    updateAlert = true
+                    contentViewModel.updateAlert = true
                 default:
-                    updateAlert = false
+                    contentViewModel.updateAlert = false
                 }
                 
             }
             .onChange(of: scenePhase, initial: false) {oldPhase, newPhase in
                 
                 if oldPhase == .background && newPhase == .active {
-//                    contentViewModel.combo = combo_store
-                    generator.generate()
+                    contentViewModel.appear()
                 } else if newPhase == .active {
-//                    contentViewModel.combo = combo_store
                     GKAccessPoint.shared.isActive = false
                 }
-                
                 // active以外の状態に遷移する時、コンボを送信する
                 if oldPhase == .active && newPhase != .active {
-                    let comboNumber = UserDefaults.standard.integer(forKey: "combo")
-                    gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                    contentViewModel.fromActiveToInactive()
                 }
                 
             }
@@ -174,13 +159,11 @@ struct ContentView: View {
                 if gameCenterManager.isAuthenticated {
                     Task {
                         await gameCenterManager.checkDuration()
-                        contentViewModel.combo = combo_store
+                        contentViewModel.appear()
                     }
                 } else {
-                    contentViewModel.combo = combo_store
+                    contentViewModel.appear()
                 }
-                
-                contentViewModel.combo = combo_store
             }
             .toolbar{
                 ToolbarItem(placement: .topBarTrailing) {
@@ -199,20 +182,20 @@ struct ContentView: View {
                         NavigationLink(destination: {
                             ProfileView(manager: $gameCenterManager)
                                 .onAppear() {
-                                    let data = UserDefaults.standard.integer(forKey: "success")
-                                    gameCenterManager.submitScore(data, to: "com.LinearPractice.keekifami.HighScore")
-                                    let comboNumber = UserDefaults.standard.integer(forKey: "combo")
-                                    gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                                    gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
+                                    gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                                    UserDefaults.standard.set(contentViewModel.success, forKey: "success")
+                                    UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
                                 }
                         }, label: {
                             Label("プロフィール", systemImage: "person")
                         })
                         
                         Button(action: {
-                            let data = UserDefaults.standard.integer(forKey: "success")
-                            gameCenterManager.submitScore(data, to: "com.LinearPractice.keekifami.HighScore")
-                            let comboNumber = UserDefaults.standard.integer(forKey: "combo")
-                            gameCenterManager.submitScore(comboNumber, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                            gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
+                            gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                            UserDefaults.standard.set(contentViewModel.success, forKey: "success")
+                            UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
                             
                             gameCenterManager.showLeaderboards()
                         }, label: {
@@ -220,7 +203,6 @@ struct ContentView: View {
                         })
                         
                     } label: {
-
                         Image(systemName: "info")
                     }
                 }
@@ -229,31 +211,37 @@ struct ContentView: View {
         }
     }
     
-    func handleCheckAnswer(result: Bool) {
-        generator.ansString = ""
-        if result {
-            // 正解したときに行う処理
-            withAnimation {
-                contentViewModel.combo += 1
+}
+
+struct ProblemView: View {
+    var problem: MatrixProblemModel
+    var body: some View {
+        switch problem.problemType {
+        case .add, .sub, .mul:
+            HStack(spacing: 0) {
+                MatrixGridView(matrix: problem.matrices[0])
+                
+                OperatorText(type: problem.problemType)
+                
+                MatrixGridView(matrix: problem.matrices[1])
             }
-            combo_store = contentViewModel.combo
-            success += 1
-            generator.generate()
-        } else {
-            // 不正解になったときに行う処理
-            // コンボをリセットする前に、コンボを送信する。
-            let combo = UserDefaults.standard.integer(forKey: "combo")
-            GameCenterManager.shared.submitScore(combo, to: "com.LinearPractice.keeki.WeeklyComboRanking")
-            
-            failure += 1
-            combo_store = 0
-            contentViewModel.combo = 0
-            generator.ansString = ""
-//            generator.checkAnimation.toggle()
+            HStack {
+                cellText("=")
+                if let matrix = problem.ansMatrix, let ansX = problem.ansRow, let ansY = problem.ansColumn {
+                    MatrixAnswerView(
+                        matrix: matrix,
+                        answerX: ansX,
+                        answerY: ansY
+                    )
+                } else {
+                    ProgressView()
+                }
+            }
             
         }
     }
 }
+
 struct SubButtonStyle: ButtonStyle {
 //    let onTouchDown: () -> Void
     let onTouchUp: () -> Void
@@ -278,7 +266,7 @@ func storeData() {
 }
 
 struct OperatorText: View {
-    var type: CalculateType
+    var type: ProblemType
     var body: some View {
         switch type {
         case .add:
