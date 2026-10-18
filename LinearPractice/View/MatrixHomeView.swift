@@ -9,7 +9,7 @@ import SwiftUI
 
 // View: 行列の表示
 struct MatrixGridView: View {
-    let matrix: Matrix
+    let matrix: MatrixModel
     @State var hSize: CGFloat = 0
     var body: some View {
         HStack {
@@ -19,7 +19,7 @@ struct MatrixGridView: View {
             VStack(spacing: 4) {
                 ForEach(matrix.matrix, id: \.self) { row in
                     HStack (spacing: 4) {
-                        ForEach(row, id: \.self.id) { num in
+                        ForEach(row, id: \.self) { num in
                             cellText("\(num.value)")
                         }
                     }
@@ -54,7 +54,7 @@ func cellText(_ text: String) -> some View {
 
 // View: 行列の回答の表示
 struct MatrixAnswerView: View {
-    let matrix: Matrix
+    let matrix: MatrixModel
     let answerX: Int
     let answerY: Int
     @State private var hSize: CGFloat = 0
@@ -64,7 +64,7 @@ struct MatrixAnswerView: View {
                 .resizable()
                 .frame(width: 10, height: hSize)
             VStack(spacing: 4) {
-                ForEach(0..<matrix.matrix.count, id: \.self) { i in
+                ForEach(0..<matrix.row, id: \.self) { i in
                     HStack (spacing: 4) {
                         ForEach(matrix.matrix[i].indices, id: \.self) { j in
                             if i == answerX && j == answerY {
@@ -72,7 +72,7 @@ struct MatrixAnswerView: View {
                                     .background(.yellow)
                             } else {
                                 cellText("\(matrix.matrix[i][j].value)")
-                                    .id(matrix.matrix[i][j].id)
+//                                    .id(matrix.matrix[i][j].id)
                             }
                         }
                     }
