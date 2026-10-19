@@ -103,10 +103,7 @@ struct ContentView: View {
                 .transition(.opacity)
                 
                 if contentViewModel.isKeyboard {
-                    NumberPadView("submit", text: $contentViewModel.userInput, action: {
-//                        let result = generator.checkAnswer()
-//                        handleCheckAnswer(result: result)
-                        
+                    NumberPadView("submit", text: $contentViewModel.userInput, action: {                        
                         contentViewModel.checkAnswer()
                     })
                 } else {
@@ -194,6 +191,7 @@ struct ContentView: View {
                         }, label: {
                             Label("プロフィール", systemImage: "person")
                         })
+                        
                         
                         NavigationLink(destination: {
                             ExplanationHomeView()

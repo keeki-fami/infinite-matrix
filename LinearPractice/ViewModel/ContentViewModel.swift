@@ -19,6 +19,7 @@ class ContentViewModel {
     var success = 0
     var failure = 0
     var updateAlert: Bool = false
+    var hapticGenerator: UINotificationFeedbackGenerator? = nil
     
     var problemTypeString: String {
         if let problem = matrixProblem {
@@ -79,6 +80,11 @@ class ContentViewModel {
         let result = matrixProblem.checkAnswer(answer: answer)
 
         if result {
+            hapticGenerator = UINotificationFeedbackGenerator()
+            hapticGenerator?.prepare()
+            hapticGenerator?.notificationOccurred(.success)
+            hapticGenerator = nil
+            
             combo += 1
             success += 1
             self.generate()           
