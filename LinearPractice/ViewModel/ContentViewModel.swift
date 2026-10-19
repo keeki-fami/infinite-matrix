@@ -38,7 +38,9 @@ class ContentViewModel {
 
     // 行列生成時の処理を担当。
     func generate() {
-        matrixProblem = MatrixProblemModel.generate()
+        withAnimation {
+            matrixProblem = MatrixProblemModel.generate()
+        }
         userInput = ""
         inputError = nil
     }

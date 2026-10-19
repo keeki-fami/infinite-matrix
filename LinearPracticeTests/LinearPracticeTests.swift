@@ -21,5 +21,17 @@ struct MatrixModelTest {
             }
         }
     }
+}
 
+struct MatrixProblemModelTest {
+    @Test("行列が2個生成される。")
+    func dimOfleftRowAndRightColumn() {
+        let matrixProblemModel = MatrixProblemModel.generate()
+        switch matrixProblemModel.problemType {
+        case .add, .sub, .mul:
+            #expect(matrixProblemModel.matrices.count == 2)
+        @unknown default:
+            print("未実装")
+        }
+    }
 }

@@ -191,6 +191,12 @@ struct ContentView: View {
                             Label("プロフィール", systemImage: "person")
                         })
                         
+                        NavigationLink(destination: {
+                            ExplanationHomeView()
+                        }, label: {
+                            Label("チュートリアル", systemImage: "book.pages")
+                        })
+                        
                         Button(action: {
                             gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
                             gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
