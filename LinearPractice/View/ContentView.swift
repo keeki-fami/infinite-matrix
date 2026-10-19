@@ -44,6 +44,10 @@ struct ContentView: View {
                             }
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .overlay(alignment: .top) {
+                            Text("\(contentViewModel.problemTypeString)")
+                                .foregroundStyle(.gray)
+                        }
                         Rectangle().fill(.clear).frame(width: 10, height: 20)
                     }
                     .overlay(alignment: .bottom) {
@@ -193,6 +197,12 @@ struct ContentView: View {
                         
                         NavigationLink(destination: {
                             ExplanationHomeView()
+                                .onAppear() {
+                                    gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
+                                    gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                                    UserDefaults.standard.set(contentViewModel.success, forKey: "success")
+                                    UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
+                                }
                         }, label: {
                             Label("チュートリアル", systemImage: "book.pages")
                         })

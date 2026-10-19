@@ -19,6 +19,25 @@ class ContentViewModel {
     var success = 0
     var failure = 0
     var updateAlert: Bool = false
+    
+    var problemTypeString: String {
+        if let problem = matrixProblem {
+            switch problem.problemType {
+            case .add:
+                return "行列の足し算"
+            case .sub:
+                return "行列の引き算"
+            case .mul:
+                return "行列の掛け算"
+            @unknown default:
+                return ""
+                
+            }
+        } else {
+            return ""
+        }
+    }
+    
 
     init() {
         combo = UserDefaults.standard.integer(forKey: "combo")
