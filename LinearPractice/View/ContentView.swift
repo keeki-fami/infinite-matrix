@@ -26,6 +26,7 @@ struct ContentView: View {
     @AppStorage("failure") var failure: Int = 0
     @AppStorage("success") var success: Int = 0
     @AppStorage("combo") var combo_store: Int = 0
+    @AppStorage("initialLaunch") var initialLaunch: Bool = false
     
     @Environment(\.scenePhase) var scenePhase
     @State var gameCenterManager = GameCenterManager.shared
