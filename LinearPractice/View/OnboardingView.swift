@@ -10,8 +10,10 @@ import SwiftUI
 
 struct OnboardingView: View {
     @AppStorage("initialLaunch") var initialLaunch: Bool = false
+    let onboardingFinal = 5
     
     let imageString = [
+        "onboarding5",
         "onboarding1",
         "onboarding2",
         "onboarding3",
@@ -19,6 +21,7 @@ struct OnboardingView: View {
         "onboarding5"
     ]
     let title: [String] = [
+        "ようこそ！",
         "ハテナに入る数を入力しよう！",
         "メモモードを利用しよう！",
         "チュートリアルを見よう！",
@@ -26,6 +29,7 @@ struct OnboardingView: View {
         "始めよう！"
     ]
     let description: [String] = [
+        "無限行列計算へようこそ！\nアプリの使い方を紹介します！",
         "正解すると、コンボ数が増える！",
         "途中計算が必要な場合は、メモモードに切り替えて途中式を書こう！",
         "画面左上のボタンから確認できる！行列が初めての人はまずここから！",
@@ -56,14 +60,14 @@ struct OnboardingView: View {
                         }, label: {
                             Rectangle()
                                 .fill(
-                                    counter < 4 ? .gray : .blue
+                                    counter < onboardingFinal ? .gray : .blue
                                 )
                                 .frame(width: 350, height: 50)
                                 .clipShape(
                                     RoundedRectangle(cornerRadius: 5)
                                 )
                                 .overlay() {
-                                    if counter != 4 {
+                                    if counter != onboardingFinal {
                                         Text("次へ")
                                             .foregroundStyle(.black)
                                     } else {
@@ -85,8 +89,8 @@ struct OnboardingView: View {
     }
     
     func buttonHandler() {
-        if counter < 4 {
-            counter = (counter+1)%5
+        if counter < onboardingFinal {
+            counter = (counter+1)%(onboardingFinal+1)
         } else {
             withAnimation {
                 initialLaunch = true
@@ -102,34 +106,51 @@ struct OnboardingView: View {
                 switch counter {
                 case 0:
                     Image("\(imageString[counter])")
-                        .frame(maxWidth: .infinity, maxHeight: 500)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 300)
                         .animation(.smooth, value: counter)
-                        .border(.red)
+//                        .border(.red)
                 case 1:
                     Image("\(imageString[counter])")
-                        .frame(maxWidth: .infinity, maxHeight: 500)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 300)
                         .animation(.smooth, value: counter)
-                        .border(.red)
+//                        .border(.red)
                 case 2:
                     Image("\(imageString[counter])")
-                        .frame(maxWidth: .infinity, maxHeight: 500)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 300)
                         .animation(.smooth, value: counter)
-                        .border(.red)
+//                        .border(.red)
                 case 3:
                     Image("\(imageString[counter])")
-                        .frame(maxWidth: .infinity, maxHeight: 500)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 300)
                         .animation(.smooth, value: counter)
-                        .border(.red)
+//                        .border(.red)
                 case 4:
                     Image("\(imageString[counter])")
-                        .frame(maxWidth: .infinity, maxHeight: 500)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 300)
                         .animation(.smooth, value: counter)
-                        .border(.red)
+//                        .border(.red)
+                case 5:
+                    Image("\(imageString[counter])")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 300)
+                        .animation(.smooth, value: counter)
+//                        .border(.red)
                 default:
                     EmptyView()
                 }
             }
-            .frame(height: 500)
+            .frame(height: 400)
     }
 }
 

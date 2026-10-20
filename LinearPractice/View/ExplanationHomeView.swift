@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ExplanationHomeView: View {
-    private let prerequisites = ["前提知識1", "前提知識2"]
+    private let prerequisites = ["行と列", "要素の数え方"]
     private let calculations = ["行列の足し算", "行列の引き算", "行列の掛け算"]
 
     var body: some View {

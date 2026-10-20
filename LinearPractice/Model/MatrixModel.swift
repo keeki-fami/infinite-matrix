@@ -17,10 +17,6 @@ struct MatrixValue: Identifiable, Hashable {
         return lhs.value == rhs.value
     }
     
-    static func + (lhs: MatrixValue, rhs: MatrixValue) -> MatrixValue {
-        return MatrixValue(lhs.value + rhs.value)
-    }
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(value)
     }
