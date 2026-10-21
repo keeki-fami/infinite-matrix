@@ -7,10 +7,25 @@
 //
 
 import SwiftUI
+import AVFoundation
+
+enum NowProblem {
+    case problem1
+    case problem2
+    
+    mutating func toggle() {
+        if self == .problem1 {
+            self = .problem2
+        } else {
+            self = .problem1
+        }
+    }
+}
 
 @Observable
 class ContentViewModel {
-    var matrixProblem: MatrixProblemModel?
+    var matrixProblem1: MatrixProblemModel?
+    var matrixProblem2: MatrixProblemModel?
     var combo: Int = 0
     var isKeyboard: Bool = true
     var userInput = ""
@@ -20,9 +35,13 @@ class ContentViewModel {
     var failure = 0
     var updateAlert: Bool = false
     var hapticGenerator: UINotificationFeedbackGenerator? = nil
+    var isSuccess1 = false
+    var isSuccess2 = false
+    var nowProblem: NowProblem = .problem1
     
     var problemTypeString: String {
-        if let problem = matrixProblem {
+        var matrixproblem = nowProblem == .problem1 ? matrixProblem1 : matrixProblem2
+        if let problem = matrixproblem {
             switch problem.problemType {
             case .add:
                 return "行列の足し算"
@@ -37,12 +56,13 @@ class ContentViewModel {
         } else {
             return ""
         }
+            
     }
     
 
     init() {
         combo = UserDefaults.standard.integer(forKey: "combo")
-        generate()
+        self.initGenerate()
     }
     
     func appear() {
@@ -55,31 +75,53 @@ class ContentViewModel {
     func togglePadView() {
         isKeyboard.toggle()
     }
+    
+    func initGenerate() {
+        withAnimation {
+            self.matrixProblem1 = MatrixProblemModel.generate()
+            self.matrixProblem2 = MatrixProblemModel.generate()
+        }
+        userInput = ""
+        inputError = nil
+    }
 
     // 行列生成時の処理を担当。
     func generate() {
         withAnimation {
-            matrixProblem = MatrixProblemModel.generate()
+            if nowProblem == .problem2 {
+                self.matrixProblem1 = MatrixProblemModel.generate()
+            } else {
+                self.matrixProblem2 = MatrixProblemModel.generate()
+            }
         }
         userInput = ""
         inputError = nil
     }
 
     // 回答確認。それに伴うcomboの更新処理など、一連の処理をまとめる。
-    func checkAnswer() {
+    func checkAnswer() async {
+        var matrixproblem = nowProblem == .problem1 ? matrixProblem1 : matrixProblem2
         guard let answer = Int(userInput) else {
             inputError = "数字を入力してください。"
             checkAnimation.toggle()
             return
         }
-        guard let matrixProblem else {
+        
+        guard let matrixproblem else {
             preconditionFailure("A problem must be generated before checking an answer.")
         }
 
         inputError = nil
-        let result = matrixProblem.checkAnswer(answer: answer)
-
+        let result = matrixproblem.checkAnswer(answer: answer)
+        
         if result {
+            if nowProblem == .problem1 {
+                self.isSuccess1 = true
+            } else {
+                self.isSuccess2 = true
+            }
+            var player = try? AVAudioPlayer(data: NSDataAsset(name: "determine")!.data)
+            player?.play()
             hapticGenerator = UINotificationFeedbackGenerator()
             hapticGenerator?.prepare()
             hapticGenerator?.notificationOccurred(.success)
@@ -87,7 +129,22 @@ class ContentViewModel {
             
             combo += 1
             success += 1
-            self.generate()           
+            
+            // TODO: delayを入れる？
+            
+            Task {
+                try? await Task.sleep(nanoseconds: 300000000)
+                withAnimation {
+                    self.nowProblem.toggle()
+                } completion: {
+                    if self.nowProblem == .problem1 {
+                        self.isSuccess2 = false
+                    } else {
+                        self.isSuccess1 = false
+                    }
+                    self.generate()
+                }
+            }
         } else {
             // GameCenterに送信
             GameCenterManager.shared.submitScore(combo, to: "com.LinearPractice.keeki.WeeklyComboRanking")

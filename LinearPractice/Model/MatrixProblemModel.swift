@@ -18,6 +18,7 @@ struct MatrixProblemModel: Identifiable {
     var ansMatrix: MatrixModel?
     var ansRow: Int?
     var ansColumn: Int?
+    var isSuccess = false
     
     init(problemType: ProblemType, matricies: [MatrixModel], ansMatrix: MatrixModel? = nil, ansRow: Int? = nil, ansColumn: Int? = nil) {
         self.id = UUID().uuidString
@@ -170,7 +171,6 @@ struct MatrixProblemModel: Identifiable {
             ansMatrix != nil && ansMatrix!.row >= ansRow! && ansMatrix!.column >= ansColumn!,
             "解答の行列が指定されていません。"
         )
-        
         return ansMatrix!.matrix[ansRow!][ansColumn!].value == answer
     }
 
