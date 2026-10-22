@@ -115,13 +115,15 @@ class ContentViewModel {
         let result = matrixproblem.checkAnswer(answer: answer)
         
         if result {
+            self.userInput = ""
             if nowProblem == .problem1 {
                 self.isSuccess1 = true
             } else {
                 self.isSuccess2 = true
             }
-            var player = try? AVAudioPlayer(data: NSDataAsset(name: "determine")!.data)
-            player?.play()
+//            var player = try? AVAudioPlayer(data: NSDataAsset(name: "determine")!.data)
+//            player?.play()
+            
             hapticGenerator = UINotificationFeedbackGenerator()
             hapticGenerator?.prepare()
             hapticGenerator?.notificationOccurred(.success)
@@ -133,8 +135,8 @@ class ContentViewModel {
             // TODO: delayを入れる？
             
             Task {
-                try? await Task.sleep(nanoseconds: 300000000)
-                withAnimation {
+                try? await Task.sleep(nanoseconds: 200000000)
+                withAnimation() {
                     self.nowProblem.toggle()
                 } completion: {
                     if self.nowProblem == .problem1 {

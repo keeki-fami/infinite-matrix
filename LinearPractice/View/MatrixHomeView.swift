@@ -65,7 +65,7 @@ struct MatrixAnswerView: View {
             Image("left")
                 .resizable()
                 .frame(width: 10, height: hSize)
-                .zIndex(999)
+                .zIndex(-1)
             
             VStack(spacing: 4) {
                 ForEach(0..<matrix.row, id: \.self) { i in
@@ -90,6 +90,7 @@ struct MatrixAnswerView: View {
                     }
                     
                 }
+//                .zIndex(999)
             }
             .background(GeometryReader { geometry in
                 Color.clear
@@ -107,7 +108,7 @@ struct MatrixAnswerView: View {
             Image("right")
                 .resizable()
                 .frame(width: 10, height: hSize)
-                .zIndex(999)
+                .zIndex(-1)
         }
     }
 }

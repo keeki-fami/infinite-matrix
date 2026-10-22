@@ -22,6 +22,7 @@ extension Array {
 struct ContentView: View {
     @State var contentViewModel: ContentViewModel = .init()
     @State private var memoView = PKCanvasView()
+    @State private var navigationPath = NavigationPath()
     
     @AppStorage("failure") var failure: Int = 0
     @AppStorage("success") var success: Int = 0
@@ -32,7 +33,7 @@ struct ContentView: View {
     @State var gameCenterManager = GameCenterManager.shared
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $navigationPath) {
             ZStack {
                 VStack(spacing: 0) {
                     Group {
@@ -264,17 +265,15 @@ struct ContentView: View {
                             })
                             
                             
-                            NavigationLink(destination: {
-                                ExplanationHomeView()
-                                    .onAppear() {
-                                        gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
-                                        gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
-                                        UserDefaults.standard.set(contentViewModel.success, forKey: "success")
-                                        UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
-                                    }
-                            }, label: {
+                            Button {
+                                gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
+                                gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
+                                UserDefaults.standard.set(contentViewModel.success, forKey: "success")
+                                UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
+                                navigationPath.append(ExplanationDestination.home)
+                            } label: {
                                 Label("チュートリアル", systemImage: "book.pages")
-                            })
+                            }
                             
                             Button(action: {
                                 gameCenterManager.submitScore(contentViewModel.success, to: "com.LinearPractice.keekifami.HighScore")
@@ -292,6 +291,16 @@ struct ContentView: View {
                         }
                     }
                     
+                }
+                .navigationDestination(for: ExplanationDestination.self) { destination in
+                    switch destination {
+                    case .home:
+                        ExplanationHomeView()
+                    case .lesson(let lesson):
+                        ExplanationLessonView(lesson: lesson)
+                    case .quiz(let lesson):
+                        ExplanationQuizView(lesson: lesson)
+                    }
                 }
             }
         }
