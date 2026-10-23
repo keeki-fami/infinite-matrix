@@ -23,8 +23,6 @@ enum ExplanationLesson: String, CaseIterable, Hashable, Identifiable {
             return [
                 "tutorial_rowcolumn_1",
                 "tutorial_rowcolumn_1",
-                "tutorial_rowcolumn_1",
-                "tutorial_rowcolumn_1",
                 "tutorial_rowcolumn_2",
                 "tutorial_rowcolumn_3",
                 "tutorial_rowcolumn_4",
@@ -33,19 +31,45 @@ enum ExplanationLesson: String, CaseIterable, Hashable, Identifiable {
                 "tutorial_rowcolumn_7",
                 "tutorial_rowcolumn_8",
             ]
+        case .elementPosition:
+            return [
+                "tutorial_element1",
+                "tutorial_element2",
+                "tutorial_element3",
+                "tutorial_element4",
+                "tutorial_element5",
+                "tutorial_element6",
+                "tutorial_element7",
+            ]
+        case .addition:
+            return [
+                "tutorial_add_1",
+                "tutorial_add_3",
+                "tutorial_add_2",
+                "tutorial_add_3",
+                "tutorial_add_4",
+                "tutorial_add_5",
+                "tutorial_add_6",
+            ]
+        case .subtraction:
+            return [
+                "tutorial_sub_1",
+                "tutorial_sub_3",
+                "tutorial_sub_2",
+                "tutorial_sub_3",
+                "tutorial_sub_4",
+                "tutorial_sub_5",
+                "tutorial_sub_6",
+            ]
         default:
             return [
-                "tutorial_rowcolumn_1",
-                "tutorial_rowcolumn_1",
-                "tutorial_rowcolumn_1",
-                "tutorial_rowcolumn_1",
-                "tutorial_rowcolumn_2",
-                "tutorial_rowcolumn_3",
-                "tutorial_rowcolumn_4",
-                "tutorial_rowcolumn_5",
-                "tutorial_rowcolumn_6",
-                "tutorial_rowcolumn_7",
-                "tutorial_rowcolumn_8",
+                "tutorial_add_1",
+                "tutorial_add_1",
+                "tutorial_add_2",
+                "tutorial_add_3",
+                "tutorial_add_4",
+                "tutorial_add_5",
+                "tutorial_add_6",
             ]
         }
     }
@@ -55,9 +79,7 @@ enum ExplanationLesson: String, CaseIterable, Hashable, Identifiable {
         case .rowsAndColumns:
             return [
                 "今画面に見えているのは**行列**です。",
-                "行列は、数がたくさん集まっています。",
-                "行列にはたくさんの形があります。",
-                "そんな行列には、**行**と**列**という数え方があります。",
+                "行列には、**行**と**列**という数え方があります。",
                 "行は横方向です。",
                 "列は縦方向です。",
                 "上の行列は、横方向に数えると２個あります。",
@@ -81,22 +103,20 @@ enum ExplanationLesson: String, CaseIterable, Hashable, Identifiable {
                 "行列の足し算は難しそうに見えて、実は簡単です。",
                 "行列の同じ位置にある要素同士を足せば良いです。",
                 "行列の「要素」がわからない人は、「要素の数え方」を見てください。",
-                "回答の２行３列の部分を求めてみましょう。",
-                "２行３列目の要素を求めるには、",
-                "行列の２行３列の要素同士を足しましょう。",
-                "２＋３です。",
-                "答えは５です。"
+                "回答の１行２列の部分を求めてみましょう。",
+                "１行２列目の要素を求めるには、行列の１行２列の要素同士を足しましょう。",
+                "８＋５です。",
+                "答えは１３です。"
             ]
         case .subtraction:
             return [
                 "行列の引き算は難しそうに見えて、実は簡単です。",
                 "行列の同じ位置にある要素同士を引けば良いです。",
                 "行列の「要素」がわからない人は、「要素の数え方」を見てください。",
-                "回答の１行２列の部分を求めてみましょう。",
-                "１行２列目の要素を求めるには、",
-                "行列の１行２列の要素同士の引き算をしましょう。",
-                "５ー３です。",
-                "答えは２です。"
+                "回答の１行１列の部分を求めてみましょう。",
+                "１行１列目の要素を求めるには、行列の１行１列の要素同士の引き算をしましょう。",
+                "１−１です。",
+                "答えは０です。"
             ]
         }
     }
@@ -129,6 +149,7 @@ struct ExplanationHomeView: View {
 struct ExplanationLessonView: View {
     let lesson: ExplanationLesson
     @State private var currentPage = 0
+    @Environment(\.dismiss) var dismiss
 
     var body: some View {
         GeometryReader { geometry in
@@ -153,7 +174,11 @@ struct ExplanationLessonView: View {
 
                 Button {
                     withAnimation(.easeInOut) {
-                        currentPage = (currentPage + 1) % lesson.slides.count
+                        if currentPage == lesson.slides.count - 1 {
+                            dismiss()
+                        } else {
+                            currentPage = (currentPage + 1) % lesson.slides.count
+                        }
                     }
                 } label: {
                     Text("次へ")
