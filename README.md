@@ -11,6 +11,10 @@
 
 ## Overview
 
+<p align="center">
+<img alt="無限行列計算 appstore" src="./images/AppStore.png" width="800">
+</p>
+
 Matrix calculations are an important part of university mathematics, but finding enough practice problems can be surprisingly difficult.
 
 **無限行列計算** generates an unlimited number of matrix calculation problems, allowing you to practice as much as you want.
