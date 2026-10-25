@@ -35,6 +35,7 @@ struct ContentView: View {
     var body: some View {
         NavigationStack(path: $navigationPath) {
             ZStack {
+                BubbleBackgroundView(isActive: $contentViewModel.isBubbleAnimation)
                 VStack(spacing: 0) {
                     Group {
                         //                    ScrollView {
@@ -115,8 +116,14 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             //                        .particleEffect(trigger: contentViewModel.isSuccess)
                             .overlay(alignment: .top) {
-                                Text("\(contentViewModel.problemTypeString)")
-                                    .foregroundStyle(.gray)
+                                VStack {
+//                                    ProgressView(value: min(Double(contentViewModel.combo)/30.0, 1.0))
+//                                        .tint(contentViewModel.combo >= 30 ? .yellow : .blue)
+//                                        .frame(width: 200)
+//                                        .animation(.easeOut, value: contentViewModel.combo)
+                                    Text("\(contentViewModel.problemTypeString)")
+                                        .foregroundStyle(.gray)
+                                }
                             }
                             Rectangle().fill(.clear).frame(width: 10, height: 20)
                         }
@@ -290,7 +297,11 @@ struct ContentView: View {
                             Image(systemName: "info")
                         }
                     }
-                    
+//                    ToolbarItem(placement: .principal) {
+//
+//                            
+//                    }
+//                    .sharedBackgroundVisibility(.hidden)
                 }
                 .navigationDestination(for: ExplanationDestination.self) { destination in
                     switch destination {

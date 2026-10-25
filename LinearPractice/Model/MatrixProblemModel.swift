@@ -43,12 +43,21 @@ struct MatrixProblemModel: Identifiable {
         switch problemType {
         case .add, .sub:
             leftRows = Int.random(in: 1...3)
-            leftColumns = Int.random(in: 1...3)
+            if leftRows == 1 {
+                leftColumns = Int.random(in: 2...3)
+            } else {
+                leftColumns = Int.random(in: 1...3)
+            }
             rightRows = leftRows
             rightColumns = leftColumns
         case .mul:
-            let sharedDimension = Int.random(in: 1...3)
+            let sharedDimension: Int
             leftRows = Int.random(in: 1...3)
+            if leftRows == 1 {
+                sharedDimension = Int.random(in: 2...3)
+            } else {
+                sharedDimension = Int.random(in: 1...3)
+            }
             leftColumns = sharedDimension
             rightRows = sharedDimension
             rightColumns = Int.random(in: 1...3)

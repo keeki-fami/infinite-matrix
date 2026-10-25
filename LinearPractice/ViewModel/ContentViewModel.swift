@@ -38,6 +38,8 @@ class ContentViewModel {
     var isSuccess1 = false
     var isSuccess2 = false
     var nowProblem: NowProblem = .problem1
+    var isBubbleAnimation: Bool = false
+    let achievementSet: Set<Int> = [10, 50, 77, 100]
     
     var problemTypeString: String {
         var matrixproblem = nowProblem == .problem1 ? matrixProblem1 : matrixProblem2
@@ -129,7 +131,17 @@ class ContentViewModel {
             hapticGenerator?.notificationOccurred(.success)
             hapticGenerator = nil
             
-            combo += 1
+            withAnimation(.easeOut(duration: 0.3)) {
+                combo += 1
+            }
+            if combo % 10 == 0 && combo != 0 {
+                isBubbleAnimation.toggle()
+            }
+            
+            if achievementSet.contains(combo) {
+                GameCenterManager.shared.updateAchievement(for: combo)
+            }
+            
             success += 1
             
             // TODO: delayを入れる？

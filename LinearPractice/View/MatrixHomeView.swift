@@ -13,7 +13,7 @@ struct MatrixGridView: View {
     @State var hSize: CGFloat = 0
     var body: some View {
         HStack {
-            Image("left")
+            Image("left2")
                 .resizable()
                 .frame(width: 10, height: hSize)
             VStack(spacing: 4) {
@@ -38,7 +38,7 @@ struct MatrixGridView: View {
                         hSize = geometry.size.height
                     }
             })
-            Image("right")
+            Image("right2")
                 .resizable()
                 .frame(width: 10, height: hSize)
         }
@@ -62,7 +62,7 @@ struct MatrixAnswerView: View {
     @State private var point: CGPoint = .init()
     var body: some View {
         HStack {
-            Image("left")
+            Image("left2")
                 .resizable()
                 .frame(width: 10, height: hSize)
                 .zIndex(-1)
@@ -105,7 +105,7 @@ struct MatrixAnswerView: View {
                     }
             })
             
-            Image("right")
+            Image("right2")
                 .resizable()
                 .frame(width: 10, height: hSize)
                 .zIndex(-1)

@@ -18,9 +18,6 @@ struct LinearPracticeApp: App {
                     OnboardingView()
                 }
             }
-            .onAppear() {
-                initialLaunch = false
-            }
         }
     }
 }
