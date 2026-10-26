@@ -1,0 +1,12 @@
+{
+	"configurations": [
+		{
+			"type": "wendy",
+			"name": "Debug Python App with Wendy",
+			"request": "attach",
+			"target": "/Users/towasakurada/Desktop/private_Xcode/LinearPractice",
+			"cwd": "/Users/towasakurada/Desktop/private_Xcode/LinearPractice",
+			"preLaunchTask": "wendy: Run Python App"
+		}
+	]
+}

@@ -1,0 +1,137 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Prepare Mugen Matrix video project",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cp -R /Users/towasakurada/.agents/skills/launch-video-craft/kit video/mugen-matrix-launch && printf '\\nvideo/mugen-matrix-launch/\\nvideo/mugen-matrix-launch.mp4\\n' >> .git/info/exclude && cd video/mugen-matrix-launch && npm install && npm run sync"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Clean failed video dependency install",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"rm -rf video/mugen-matrix-launch/node_modules && df -h ."
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Install video dependencies and sync kit",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cd video/mugen-matrix-launch && npm install && npm run sync"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Link footage and validate promo code",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cd video/mugen-matrix-launch && mkdir -p public/audio && ln -s ../../playing.MP4 public/playing.MP4 && ln -s ../../tutorial.MP4 public/tutorial.MP4 && ln -s ../../ranking.MP4 public/ranking.MP4 && cp ../../LinearPractice/Assets.xcassets/InfinityMatrix.imageset/infiinty_matrix_2.png public/matrix-logo.png && npm run audio && npm run typecheck"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Install audio generator dependency",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"python3 -m pip install numpy && cd video/mugen-matrix-launch && npm run audio && npm run typecheck"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Typecheck and verify film stills",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cd video/mugen-matrix-launch && npm run typecheck && npm run verify"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Copy footage and rerun verification",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cd video/mugen-matrix-launch && rm public/playing.MP4 public/tutorial.MP4 public/ranking.MP4 && cp ../../playing.MP4 ../../tutorial.MP4 ../../ranking.MP4 public/ && npm run verify"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Copy assets and verify again",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cd video/mugen-matrix-launch && cp ../playing.MP4 ../tutorial.MP4 ../ranking.MP4 public/ && npm run verify"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Recheck type safety and film stills",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cd video/mugen-matrix-launch && npm run typecheck && npm run verify"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Final still verification before render",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"cd video/mugen-matrix-launch && npm run typecheck && npm run verify && df -h ../.."
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "Inspect generated render cache sizes",
+			"type": "shell",
+			"command": "/bin/zsh",
+			"args": [
+				"-lc",
+				"df -h .; du -sh video/mugen-matrix-launch/node_modules video/mugen-matrix-launch/review video/mugen-matrix-launch/public ~/.npm 2>/dev/null; find /var/folders/ms/lf1rrpfx6c7b9ghmwpv5sws80000gn/T -maxdepth 1 -type d -name 'remotion-webpack-bundle-*' -print; find /var/folders/ms/lf1rrpfx6c7b9ghmwpv5sws80000gn/T -maxdepth 1 -type d -name 'remotion-webpack-bundle-*' -exec du -sh {} \\;"
+			],
+			"isBackground": false,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

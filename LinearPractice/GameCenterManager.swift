@@ -193,7 +193,67 @@ final class GameCenterManager: NSObject {
             }
         }
         if score >= 100 {
-            let a = GKAchievement(identifier: "LinearPractice.achievement.combo.77", player: GKLocalPlayer.local)
+            let a = GKAchievement(identifier: "LinearPractice.achievement.combo.100", player: GKLocalPlayer.local)
+            a.percentComplete = 100
+            a.showsCompletionBanner = true
+            achievement.append(a)
+            
+            guard !achievement.isEmpty else { return }
+            GKAchievement.report(achievement) { error in
+                if let error = error {
+                    print("error: \(error)")
+                } else {
+                    print("unexpected error")
+                }
+            }
+        }
+        if score >= 200 {
+            let a = GKAchievement(identifier: "LinearPractice.achievement.combo.200", player: GKLocalPlayer.local)
+            a.percentComplete = 100
+            a.showsCompletionBanner = true
+            achievement.append(a)
+            
+            guard !achievement.isEmpty else { return }
+            GKAchievement.report(achievement) { error in
+                if let error = error {
+                    print("error: \(error)")
+                } else {
+                    print("unexpected error")
+                }
+            }
+        }
+        if score >= 500 {
+            let a = GKAchievement(identifier: "LinearPractice.achievement.combo.500", player: GKLocalPlayer.local)
+            a.percentComplete = 100
+            a.showsCompletionBanner = true
+            achievement.append(a)
+            
+            guard !achievement.isEmpty else { return }
+            GKAchievement.report(achievement) { error in
+                if let error = error {
+                    print("error: \(error)")
+                } else {
+                    print("unexpected error")
+                }
+            }
+        }
+        if score >= 777 {
+            let a = GKAchievement(identifier: "LinearPractice.achievement.combo.777", player: GKLocalPlayer.local)
+            a.percentComplete = 100
+            a.showsCompletionBanner = true
+            achievement.append(a)
+            
+            guard !achievement.isEmpty else { return }
+            GKAchievement.report(achievement) { error in
+                if let error = error {
+                    print("error: \(error)")
+                } else {
+                    print("unexpected error")
+                }
+            }
+        }
+        if score >= 1000 {
+            let a = GKAchievement(identifier: "LinearPractice.achievement.combo.1000", player: GKLocalPlayer.local)
             a.percentComplete = 100
             a.showsCompletionBanner = true
             achievement.append(a)
