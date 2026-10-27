@@ -360,7 +360,9 @@ struct OperatorText: View {
     }
 }
 
+#if DEBUG
 #Preview {
     ContentView()
     //    buttonTest()
 }
+#endif

@@ -37,6 +37,8 @@ struct BubbleView: View {
     }
 }
 
+#if DEBUG
 #Preview {
     BubbleView()
 }
+#endif

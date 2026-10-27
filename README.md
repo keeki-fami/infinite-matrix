@@ -8,6 +8,9 @@
 <p align="center">
     Practice matrices. Without limits.
 </p>
+<p align="center">
+<a href="https://okiba-dev.com/apps/102"><img src="https://okiba-dev.com/apps/102/badge.svg" alt="OKIBA に掲載中" height="28"></a>
+</p>
 
 ## Overview
 

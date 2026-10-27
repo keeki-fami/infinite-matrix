@@ -155,7 +155,7 @@ struct OnboardingView: View {
 }
 
 
-
+#if DEBUG
 #Preview {
     @Previewable @State var counter = 0
     ZStack {
@@ -168,3 +168,4 @@ struct OnboardingView: View {
         OnboardingView()
     }
 }
+#endif

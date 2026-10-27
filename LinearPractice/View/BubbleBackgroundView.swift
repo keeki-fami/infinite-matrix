@@ -110,6 +110,7 @@ private struct RisingBubble: View {
     }
 }
 
+#if DEBUG
 #Preview {
     @Previewable @State var button: Bool = true
     ZStack {
@@ -120,3 +121,4 @@ private struct RisingBubble: View {
     }
     
 }
+#endif

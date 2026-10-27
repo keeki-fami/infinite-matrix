@@ -74,6 +74,9 @@ struct ProfileView: View {
         }
     }
 }
+
+#if DEBUG
 #Preview {
 //    ProfileView()
 }
+#endif
