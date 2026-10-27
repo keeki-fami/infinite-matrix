@@ -29,6 +29,16 @@
 		94A12F9F2FE98E1E00CB341C /* LinearPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinearPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9495FEEC309082CC000B05C7 /* Exceptions for "LinearPractice" folder in "LinearPractice" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"ViewModel/ContentViewModel+AnswerCheck.swift",
+			);
+			target = 94A12F9E2FE98E1E00CB341C /* LinearPractice */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9495CE48308511A1001C1E89 /* LinearPracticeTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -37,6 +47,9 @@
 		};
 		94A12FA12FE98E1E00CB341C /* LinearPractice */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9495FEEC309082CC000B05C7 /* Exceptions for "LinearPractice" folder in "LinearPractice" target */,
+			);
 			path = LinearPractice;
 			sourceTree = "<group>";
 		};
