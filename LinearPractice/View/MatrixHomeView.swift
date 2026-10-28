@@ -13,7 +13,7 @@ struct MatrixGridView: View {
     @State var hSize: CGFloat = 0
     var body: some View {
         HStack {
-            Image("left")
+            Image("left2")
                 .resizable()
                 .frame(width: 10, height: hSize)
             VStack(spacing: 4) {
@@ -38,7 +38,7 @@ struct MatrixGridView: View {
                         hSize = geometry.size.height
                     }
             })
-            Image("right")
+            Image("right2")
                 .resizable()
                 .frame(width: 10, height: hSize)
         }
@@ -57,27 +57,40 @@ struct MatrixAnswerView: View {
     let matrix: MatrixModel
     let answerX: Int
     let answerY: Int
+    @Binding var isSuccess: Bool
     @State private var hSize: CGFloat = 0
+    @State private var point: CGPoint = .init()
     var body: some View {
         HStack {
-            Image("left")
+            Image("left2")
                 .resizable()
                 .frame(width: 10, height: hSize)
+                .zIndex(-1)
+            
             VStack(spacing: 4) {
                 ForEach(0..<matrix.row, id: \.self) { i in
                     HStack (spacing: 4) {
                         ForEach(matrix.matrix[i].indices, id: \.self) { j in
                             if i == answerX && j == answerY {
-                                cellText("?")
-                                    .background(.yellow)
+                                Group {
+                                    if !isSuccess {
+                                        cellText("?")
+                                            .background(
+                                                Color.yellow
+                                            )
+                                    } else {
+                                        cellText("\(matrix.matrix[i][j].value)")
+                                    }
+                                }
+                                .particleEffect(trigger: isSuccess)
                             } else {
                                 cellText("\(matrix.matrix[i][j].value)")
-//                                    .id(matrix.matrix[i][j].id)
                             }
                         }
                     }
                     
                 }
+//                .zIndex(999)
             }
             .background(GeometryReader { geometry in
                 Color.clear
@@ -91,9 +104,11 @@ struct MatrixAnswerView: View {
                         hSize = geometry.size.height
                     }
             })
-            Image("right")
+            
+            Image("right2")
                 .resizable()
                 .frame(width: 10, height: hSize)
+                .zIndex(-1)
         }
     }
 }

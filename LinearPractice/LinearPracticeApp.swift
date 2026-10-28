@@ -9,9 +9,15 @@ import SwiftUI
 
 @main
 struct LinearPracticeApp: App {
+    @AppStorage("initialLaunch") var initialLaunch: Bool = false
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                ContentView()
+                if initialLaunch == false {
+                    OnboardingView()
+                }
+            }
         }
     }
 }

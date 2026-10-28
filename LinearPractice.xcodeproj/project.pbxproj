@@ -8,17 +8,33 @@
 
 /* Begin PBXBuildFile section */
 		9497C9C33072321000D2EBF7 /* GameCenterResources.gamekit in Resources */ = {isa = PBXBuildFile; fileRef = 9497C9C23072321000D2EBF7 /* GameCenterResources.gamekit */; };
-		949878EA307A2AE9000F4297 /* NumberPad in Frameworks */ = {isa = PBXBuildFile; productRef = 949878E9307A2AE9000F4297 /* NumberPad */; };
-		949B6813307B7C7800418DEC /* FloatingNumbers in Frameworks */ = {isa = PBXBuildFile; productRef = 949B6812307B7C7800418DEC /* FloatingNumbers */; };
-		94AE78742FF8FAD100FF3610 /* AppVersionMonitorSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 94AE78732FF8FAD100FF3610 /* AppVersionMonitorSwiftUI */; };
+		94D7C82A3091976100F690F8 /* AppVersionMonitorSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 94D7C8293091976100F690F8 /* AppVersionMonitorSwiftUI */; };
+		94D7C82D3091976F00F690F8 /* FloatingNumbers in Frameworks */ = {isa = PBXBuildFile; productRef = 94D7C82C3091976F00F690F8 /* FloatingNumbers */; };
+		94D7C8303091977E00F690F8 /* NumberPad in Frameworks */ = {isa = PBXBuildFile; productRef = 94D7C82F3091977E00F690F8 /* NumberPad */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9495CE4B308511A1001C1E89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 94A12F972FE98E1E00CB341C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 94A12F9E2FE98E1E00CB341C;
+			remoteInfo = LinearPractice;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		9495CE47308511A1001C1E89 /* LinearPracticeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LinearPracticeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9497C9C23072321000D2EBF7 /* GameCenterResources.gamekit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GameCenterResources.gamekit; sourceTree = "<group>"; };
 		94A12F9F2FE98E1E00CB341C /* LinearPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinearPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		9495CE48308511A1001C1E89 /* LinearPracticeTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = LinearPracticeTests;
+			sourceTree = "<group>";
+		};
 		94A12FA12FE98E1E00CB341C /* LinearPractice */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = LinearPractice;
@@ -27,13 +43,20 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		9495CE44308511A1001C1E89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94A12F9C2FE98E1E00CB341C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				949B6813307B7C7800418DEC /* FloatingNumbers in Frameworks */,
-				94AE78742FF8FAD100FF3610 /* AppVersionMonitorSwiftUI in Frameworks */,
-				949878EA307A2AE9000F4297 /* NumberPad in Frameworks */,
+				94D7C82A3091976100F690F8 /* AppVersionMonitorSwiftUI in Frameworks */,
+				94D7C8303091977E00F690F8 /* NumberPad in Frameworks */,
+				94D7C82D3091976F00F690F8 /* FloatingNumbers in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +68,7 @@
 			children = (
 				9497C9C23072321000D2EBF7 /* GameCenterResources.gamekit */,
 				94A12FA12FE98E1E00CB341C /* LinearPractice */,
+				9495CE48308511A1001C1E89 /* LinearPracticeTests */,
 				94A12FA02FE98E1E00CB341C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				94A12F9F2FE98E1E00CB341C /* LinearPractice.app */,
+				9495CE47308511A1001C1E89 /* LinearPracticeTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -60,6 +85,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		9495CE46308511A1001C1E89 /* LinearPracticeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9495CE4D308511A1001C1E89 /* Build configuration list for PBXNativeTarget "LinearPracticeTests" */;
+			buildPhases = (
+				9495CE43308511A1001C1E89 /* Sources */,
+				9495CE44308511A1001C1E89 /* Frameworks */,
+				9495CE45308511A1001C1E89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				9495CE4C308511A1001C1E89 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				9495CE48308511A1001C1E89 /* LinearPracticeTests */,
+			);
+			name = LinearPracticeTests;
+			packageProductDependencies = (
+			);
+			productName = LinearPracticeTests;
+			productReference = 9495CE47308511A1001C1E89 /* LinearPracticeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		94A12F9E2FE98E1E00CB341C /* LinearPractice */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 94A12FAA2FE98E2000CB341C /* Build configuration list for PBXNativeTarget "LinearPractice" */;
@@ -77,9 +125,9 @@
 			);
 			name = LinearPractice;
 			packageProductDependencies = (
-				94AE78732FF8FAD100FF3610 /* AppVersionMonitorSwiftUI */,
-				949878E9307A2AE9000F4297 /* NumberPad */,
-				949B6812307B7C7800418DEC /* FloatingNumbers */,
+				94D7C8293091976100F690F8 /* AppVersionMonitorSwiftUI */,
+				94D7C82C3091976F00F690F8 /* FloatingNumbers */,
+				94D7C82F3091977E00F690F8 /* NumberPad */,
 			);
 			productName = LinearPractice;
 			productReference = 94A12F9F2FE98E1E00CB341C /* LinearPractice.app */;
@@ -92,9 +140,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 2650;
+				LastSwiftUpdateCheck = 2660;
 				LastUpgradeCheck = 2650;
 				TargetAttributes = {
+					9495CE46308511A1001C1E89 = {
+						CreatedOnToolsVersion = 26.6;
+						TestTargetID = 94A12F9E2FE98E1E00CB341C;
+					};
 					94A12F9E2FE98E1E00CB341C = {
 						CreatedOnToolsVersion = 26.5;
 					};
@@ -110,9 +162,9 @@
 			mainGroup = 94A12F962FE98E1E00CB341C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				94AE78722FF8FAD100FF3610 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */,
-				949878E8307A2AE9000F4297 /* XCRemoteSwiftPackageReference "NumberPadView" */,
-				949B6811307B7C7800418DEC /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */,
+				94D7C8283091976100F690F8 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */,
+				94D7C82B3091976F00F690F8 /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */,
+				94D7C82E3091977E00F690F8 /* XCRemoteSwiftPackageReference "NumberPadView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 94A12FA02FE98E1E00CB341C /* Products */;
@@ -120,11 +172,19 @@
 			projectRoot = "";
 			targets = (
 				94A12F9E2FE98E1E00CB341C /* LinearPractice */,
+				9495CE46308511A1001C1E89 /* LinearPracticeTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		9495CE45308511A1001C1E89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94A12F9D2FE98E1E00CB341C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -136,6 +196,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		9495CE43308511A1001C1E89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		94A12F9B2FE98E1E00CB341C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -145,7 +212,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		9495CE4C308511A1001C1E89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 94A12F9E2FE98E1E00CB341C /* LinearPractice */;
+			targetProxy = 9495CE4B308511A1001C1E89 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		9495CE4E308511A1001C1E89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LMUVG7YFCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TowaSakurada.LinearPracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinearPractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LinearPractice";
+			};
+			name = Debug;
+		};
+		9495CE4F308511A1001C1E89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LMUVG7YFCW;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.TowaSakurada.LinearPracticeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LinearPractice.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LinearPractice";
+			};
+			name = Release;
+		};
 		94A12FA82FE98E2000CB341C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -274,7 +391,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LinearPractice/LinearPractice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = LMUVG7YFCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -284,12 +401,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TowaSakurada.LinearPractice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -312,7 +430,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LinearPractice/LinearPractice.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = LMUVG7YFCW;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -322,12 +440,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.TowaSakurada.LinearPractice;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -346,6 +465,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		9495CE4D308511A1001C1E89 /* Build configuration list for PBXNativeTarget "LinearPracticeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9495CE4E308511A1001C1E89 /* Debug */,
+				9495CE4F308511A1001C1E89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		94A12F9A2FE98E1E00CB341C /* Build configuration list for PBXProject "LinearPractice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -367,23 +495,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		949878E8307A2AE9000F4297 /* XCRemoteSwiftPackageReference "NumberPadView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/keeki-fami/NumberPadView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-		949B6811307B7C7800418DEC /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/keeki-fami/FloatingNumbersBackground";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
-			};
-		};
-		94AE78722FF8FAD100FF3610 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */ = {
+		94D7C8283091976100F690F8 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SNQ-2001/AppVersionMonitorSwiftUI";
 			requirement = {
@@ -391,23 +503,39 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		94D7C82B3091976F00F690F8 /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/keeki-fami/FloatingNumbersBackground";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+		94D7C82E3091977E00F690F8 /* XCRemoteSwiftPackageReference "NumberPadView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/keeki-fami/NumberPadView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		949878E9307A2AE9000F4297 /* NumberPad */ = {
+		94D7C8293091976100F690F8 /* AppVersionMonitorSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 949878E8307A2AE9000F4297 /* XCRemoteSwiftPackageReference "NumberPadView" */;
-			productName = NumberPad;
+			package = 94D7C8283091976100F690F8 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */;
+			productName = AppVersionMonitorSwiftUI;
 		};
-		949B6812307B7C7800418DEC /* FloatingNumbers */ = {
+		94D7C82C3091976F00F690F8 /* FloatingNumbers */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 949B6811307B7C7800418DEC /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */;
+			package = 94D7C82B3091976F00F690F8 /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */;
 			productName = FloatingNumbers;
 		};
-		94AE78732FF8FAD100FF3610 /* AppVersionMonitorSwiftUI */ = {
+		94D7C82F3091977E00F690F8 /* NumberPad */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 94AE78722FF8FAD100FF3610 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */;
-			productName = AppVersionMonitorSwiftUI;
+			package = 94D7C82E3091977E00F690F8 /* XCRemoteSwiftPackageReference "NumberPadView" */;
+			productName = NumberPad;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
