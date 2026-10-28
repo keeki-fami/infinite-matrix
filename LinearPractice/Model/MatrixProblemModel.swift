@@ -180,7 +180,7 @@ struct MatrixProblemModel: Identifiable {
             ansMatrix != nil && ansMatrix!.row >= ansRow! && ansMatrix!.column >= ansColumn!,
             "解答の行列が指定されていません。"
         )
-        return ansMatrix!.matrix[ansRow!][ansColumn!].value == answer
+        return ansMatrix!.matrix[ansRow!][ansColumn!] == answer
     }
 
     private func isRectangular(_ matrix: [[Int]]) -> Bool {

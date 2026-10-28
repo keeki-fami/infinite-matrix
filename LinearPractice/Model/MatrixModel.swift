@@ -5,6 +5,9 @@
 
 import Foundation
 
+
+// ForEachで同一の値を列挙するための構造体
+// Intとの比較を許可する。
 struct MatrixValue: Identifiable, Hashable {
     var id: UUID
     var value: Int
@@ -16,9 +19,23 @@ struct MatrixValue: Identifiable, Hashable {
     static func == (lhs: MatrixValue, rhs: MatrixValue) -> Bool {
         return lhs.value == rhs.value
     }
+    static func == (lhs: MatrixValue, rhs: Int) -> Bool {
+        return lhs.value == rhs
+    }
+    static func == (lhs: Int, rhs: MatrixValue) -> Bool {
+        return lhs == rhs.value
+    }
     
     static func + (lhs: MatrixValue, rhs: MatrixValue) -> MatrixValue {
-        return lhs.value + rhs.value
+        return MatrixValue(lhs.value + rhs.value)
+    }
+    
+    static func - (lhs: MatrixValue, rhs: MatrixValue) -> MatrixValue {
+        return MatrixValue(lhs.value - rhs.value)
+    }
+    
+    static func * (lhs: MatrixValue, rhs: MatrixValue) -> MatrixValue {
+        return MatrixValue(lhs.value * rhs.value)
     }
     
     func hash(into hasher: inout Hasher) {

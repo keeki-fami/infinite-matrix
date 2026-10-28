@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		9497C9C33072321000D2EBF7 /* GameCenterResources.gamekit in Resources */ = {isa = PBXBuildFile; fileRef = 9497C9C23072321000D2EBF7 /* GameCenterResources.gamekit */; };
+		94D7C82A3091976100F690F8 /* AppVersionMonitorSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 94D7C8293091976100F690F8 /* AppVersionMonitorSwiftUI */; };
+		94D7C82D3091976F00F690F8 /* FloatingNumbers in Frameworks */ = {isa = PBXBuildFile; productRef = 94D7C82C3091976F00F690F8 /* FloatingNumbers */; };
+		94D7C8303091977E00F690F8 /* NumberPad in Frameworks */ = {isa = PBXBuildFile; productRef = 94D7C82F3091977E00F690F8 /* NumberPad */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +29,6 @@
 		94A12F9F2FE98E1E00CB341C /* LinearPractice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LinearPractice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9495FEEC309082CC000B05C7 /* Exceptions for "LinearPractice" folder in "LinearPractice" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"ViewModel/ContentViewModel+AnswerCheck.swift",
-			);
-			target = 94A12F9E2FE98E1E00CB341C /* LinearPractice */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9495CE48308511A1001C1E89 /* LinearPracticeTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -44,9 +37,6 @@
 		};
 		94A12FA12FE98E1E00CB341C /* LinearPractice */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				9495FEEC309082CC000B05C7 /* Exceptions for "LinearPractice" folder in "LinearPractice" target */,
-			);
 			path = LinearPractice;
 			sourceTree = "<group>";
 		};
@@ -64,6 +54,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94D7C82A3091976100F690F8 /* AppVersionMonitorSwiftUI in Frameworks */,
+				94D7C8303091977E00F690F8 /* NumberPad in Frameworks */,
+				94D7C82D3091976F00F690F8 /* FloatingNumbers in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +125,9 @@
 			);
 			name = LinearPractice;
 			packageProductDependencies = (
+				94D7C8293091976100F690F8 /* AppVersionMonitorSwiftUI */,
+				94D7C82C3091976F00F690F8 /* FloatingNumbers */,
+				94D7C82F3091977E00F690F8 /* NumberPad */,
 			);
 			productName = LinearPractice;
 			productReference = 94A12F9F2FE98E1E00CB341C /* LinearPractice.app */;
@@ -166,7 +162,9 @@
 			mainGroup = 94A12F962FE98E1E00CB341C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				94D3BA2B309194AD00584425 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */,
+				94D7C8283091976100F690F8 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */,
+				94D7C82B3091976F00F690F8 /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */,
+				94D7C82E3091977E00F690F8 /* XCRemoteSwiftPackageReference "NumberPadView" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 94A12FA02FE98E1E00CB341C /* Products */;
@@ -497,7 +495,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		94D3BA2B309194AD00584425 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */ = {
+		94D7C8283091976100F690F8 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SNQ-2001/AppVersionMonitorSwiftUI";
 			requirement = {
@@ -505,7 +503,41 @@
 				minimumVersion = 0.1.1;
 			};
 		};
+		94D7C82B3091976F00F690F8 /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/keeki-fami/FloatingNumbersBackground";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.0;
+			};
+		};
+		94D7C82E3091977E00F690F8 /* XCRemoteSwiftPackageReference "NumberPadView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/keeki-fami/NumberPadView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		94D7C8293091976100F690F8 /* AppVersionMonitorSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94D7C8283091976100F690F8 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */;
+			productName = AppVersionMonitorSwiftUI;
+		};
+		94D7C82C3091976F00F690F8 /* FloatingNumbers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94D7C82B3091976F00F690F8 /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */;
+			productName = FloatingNumbers;
+		};
+		94D7C82F3091977E00F690F8 /* NumberPad */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 94D7C82E3091977E00F690F8 /* XCRemoteSwiftPackageReference "NumberPadView" */;
+			productName = NumberPad;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 94A12F972FE98E1E00CB341C /* Project object */;
 }

@@ -10,7 +10,7 @@ import SwiftUI
 // MARK: 問題生成に関連がある機能
 extension ContentViewModel {
     var problemTypeString: String {
-        var matrixproblem = nowProblem == .problem1 ? matrixProblem1 : matrixProblem2
+        let matrixproblem = nowProblem == .problem1 ? matrixProblem1 : matrixProblem2
         if let problem = matrixproblem {
             switch problem.problemType {
             case .add:
