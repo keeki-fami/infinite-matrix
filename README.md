@@ -29,6 +29,8 @@ The app works entirely locally, so you can use it anywhere—even without an int
 
 ## Link
 - [App Store](https://apps.apple.com/jp/app/%E7%84%A1%E9%99%90%E8%A1%8C%E5%88%97%E8%A8%88%E7%AE%97/id6785983550)
+- [アプリの作成動機、機能紹介など(note)](https://note.com/towa57035260/n/nf501cbc07dcb)
+- [アプリの技術紹介(Zenn)](https://zenn.dev/keeki/articles/177c5c7222887a)
 
 ## Features
 
@@ -54,10 +56,6 @@ open MatrixPractice.xcodeproj
 ## Requirement
 
 * iOS: 26.5+
-
-## Tech Stack
-
-- [Zenn](https://zenn.dev/keeki/articles/177c5c7222887a)
 
 ## Contribution
 
