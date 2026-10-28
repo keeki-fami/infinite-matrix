@@ -33,33 +33,9 @@ class ContentViewModel {
     var inputError: String?
     var success = 0
     var failure = 0
-    var updateAlert: Bool = false
-    var hapticGenerator: UINotificationFeedbackGenerator? = nil
     var isSuccess1 = false
     var isSuccess2 = false
     var nowProblem: NowProblem = .problem1
-    var isBubbleAnimation: Bool = false
-    let achievementSet: Set<Int> = [10, 50, 77, 100]
-    
-    var problemTypeString: String {
-        var matrixproblem = nowProblem == .problem1 ? matrixProblem1 : matrixProblem2
-        if let problem = matrixproblem {
-            switch problem.problemType {
-            case .add:
-                return "行列の足し算"
-            case .sub:
-                return "行列の引き算"
-            case .mul:
-                return "行列の掛け算"
-            @unknown default:
-                return ""
-                
-            }
-        } else {
-            return ""
-        }
-            
-    }
     
 
     init() {
@@ -78,11 +54,6 @@ class ContentViewModel {
         isKeyboard.toggle()
     }
 
-    
-    func doUpdate() {
-        self.updateAlert = true
-    }
-    
     func fromActiveToInactive() {
         GameCenterManager.shared.submitScore(success, to: "com.LinearPractice.keekifami.HighScore")
         GameCenterManager.shared.submitScore(combo, to: "com.LinearPractice.keeki.WeeklyComboRanking")

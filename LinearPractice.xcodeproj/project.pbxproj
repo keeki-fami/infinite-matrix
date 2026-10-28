@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		9497C9C33072321000D2EBF7 /* GameCenterResources.gamekit in Resources */ = {isa = PBXBuildFile; fileRef = 9497C9C23072321000D2EBF7 /* GameCenterResources.gamekit */; };
-		949878EA307A2AE9000F4297 /* NumberPad in Frameworks */ = {isa = PBXBuildFile; productRef = 949878E9307A2AE9000F4297 /* NumberPad */; };
-		949B6813307B7C7800418DEC /* FloatingNumbers in Frameworks */ = {isa = PBXBuildFile; productRef = 949B6812307B7C7800418DEC /* FloatingNumbers */; };
-		94AE78742FF8FAD100FF3610 /* AppVersionMonitorSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 94AE78732FF8FAD100FF3610 /* AppVersionMonitorSwiftUI */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,9 +64,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				949B6813307B7C7800418DEC /* FloatingNumbers in Frameworks */,
-				94AE78742FF8FAD100FF3610 /* AppVersionMonitorSwiftUI in Frameworks */,
-				949878EA307A2AE9000F4297 /* NumberPad in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,9 +132,6 @@
 			);
 			name = LinearPractice;
 			packageProductDependencies = (
-				94AE78732FF8FAD100FF3610 /* AppVersionMonitorSwiftUI */,
-				949878E9307A2AE9000F4297 /* NumberPad */,
-				949B6812307B7C7800418DEC /* FloatingNumbers */,
 			);
 			productName = LinearPractice;
 			productReference = 94A12F9F2FE98E1E00CB341C /* LinearPractice.app */;
@@ -175,9 +166,7 @@
 			mainGroup = 94A12F962FE98E1E00CB341C;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				94AE78722FF8FAD100FF3610 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */,
-				949878E8307A2AE9000F4297 /* XCRemoteSwiftPackageReference "NumberPadView" */,
-				949B6811307B7C7800418DEC /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */,
+				94D3BA2B309194AD00584425 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 94A12FA02FE98E1E00CB341C /* Products */;
@@ -508,23 +497,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		949878E8307A2AE9000F4297 /* XCRemoteSwiftPackageReference "NumberPadView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/keeki-fami/NumberPadView";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
-			};
-		};
-		949B6811307B7C7800418DEC /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/keeki-fami/FloatingNumbersBackground";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.1.0;
-			};
-		};
-		94AE78722FF8FAD100FF3610 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */ = {
+		94D3BA2B309194AD00584425 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SNQ-2001/AppVersionMonitorSwiftUI";
 			requirement = {
@@ -533,24 +506,6 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		949878E9307A2AE9000F4297 /* NumberPad */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 949878E8307A2AE9000F4297 /* XCRemoteSwiftPackageReference "NumberPadView" */;
-			productName = NumberPad;
-		};
-		949B6812307B7C7800418DEC /* FloatingNumbers */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 949B6811307B7C7800418DEC /* XCRemoteSwiftPackageReference "FloatingNumbersBackground" */;
-			productName = FloatingNumbers;
-		};
-		94AE78732FF8FAD100FF3610 /* AppVersionMonitorSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 94AE78722FF8FAD100FF3610 /* XCRemoteSwiftPackageReference "AppVersionMonitorSwiftUI" */;
-			productName = AppVersionMonitorSwiftUI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 94A12F972FE98E1E00CB341C /* Project object */;
 }

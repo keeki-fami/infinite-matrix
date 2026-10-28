@@ -3,6 +3,9 @@ import SwiftUI
 
 // MARK: 正誤判定に関連のある機能
 extension ContentViewModel {
+    var isBubbleAnimation: Bool = false
+    let achievementSet: Set<Int> = [10, 50, 77, 100, 200, 500, 777, 1000]
+    var hapticGenerator: UINotificationFeedbackGenerator? = nil
     // 回答確認。それに伴うcomboの更新処理など、一連の処理をまとめる。
     func checkAnswer() async {
         var matrixproblem = nowProblem == .problem1 ? matrixProblem1 : matrixProblem2
