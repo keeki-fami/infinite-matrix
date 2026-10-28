@@ -24,6 +24,8 @@ struct MatrixModelTest {
 }
 
 struct MatrixProblemModelTest {
+    // 問題に応じた行列の生成が行われる
+    // MARK: add,sub,mulは2個, 今後実装予定の行列式は行列が1個生成される。
     @Test("行列が2個生成される。")
     func dimOfleftRowAndRightColumn() {
         let matrixProblemModel = MatrixProblemModel.generate()
@@ -35,8 +37,9 @@ struct MatrixProblemModelTest {
         }
     }
     
-    @Test("正しい回答が生成できる")
-    func generateCorrectAnswer() {
+    // genAnswer関数のテスト
+    @Test("足し算で正しい回答が生成できる")
+    func generateAddCorrectAnswer() {
         for i in 1...3 {
             for j in min(i, 2)...3 {
                 let matrix1 = MatrixModel(row: i, column: j)
@@ -52,8 +55,60 @@ struct MatrixProblemModelTest {
                 let ansColumn = matrixProblemModel.ansColumn!
                 let ansMatrix = matrixProblemModel.ansMatrix!
                 
-                #expect(matrixProblemModel.matrices[0].matrix[ansRow][ansColumn] + matrixProblemModel.matrices[1].matrix[ansRow][ansColumn] == matrixProblemModel.ansMatrix!.matrix[ansRow][ansColumn])
+                #expect(matrixProblemModel.matrices[0].matrix[ansRow][ansColumn] + matrixProblemModel.matrices[1].matrix[ansRow][ansColumn] == ansMatrix.matrix[ansRow][ansColumn])
                 
+            }
+        }
+    }
+    
+    @Test("引き算で正しい回答が生成できる")
+    func generateSubCorrectAnswer() {
+        for i in 1...3 {
+            for j in min(i, 2)...3 {
+                let matrix1 = MatrixModel(row: i, column: j)
+                let matrix2 = MatrixModel(row: i, column: j)
+                
+                var matrixProblemModel = MatrixProblemModel(problemType: .sub, matricies: [matrix1, matrix2])
+                matrixProblemModel.genAnswer()
+                
+                #expect(matrixProblemModel.ansMatrix != nil)
+                
+                #expect(matrixProblemModel.ansRow != nil && matrixProblemModel.ansColumn != nil)
+                let ansRow = matrixProblemModel.ansRow!
+                let ansColumn = matrixProblemModel.ansColumn!
+                let ansMatrix = matrixProblemModel.ansMatrix!
+                
+                #expect(matrixProblemModel.matrices[0].matrix[ansRow][ansColumn] - matrixProblemModel.matrices[1].matrix[ansRow][ansColumn] == ansMatrix.matrix[ansRow][ansColumn])
+                
+            }
+        }
+    }
+    
+    @Test("掛け算で正しい回答が生成できる")
+    func generateMulCorrectAnswer() {
+        for i in 1...3 {
+            for j in min(i, 2)...3 {
+                for k in (1...3) {
+                    let matrix1 = MatrixModel(row: i, column: j)
+                    let matrix2 = MatrixModel(row: j, column: k)
+                    
+                    var matrixProblemModel = MatrixProblemModel(problemType: .mul, matricies: [matrix1, matrix2])
+                    matrixProblemModel.genAnswer()
+                    
+                    #expect(matrixProblemModel.ansMatrix != nil)
+                    
+                    #expect(matrixProblemModel.ansRow != nil && matrixProblemModel.ansColumn != nil)
+                    let ansRow = matrixProblemModel.ansRow!
+                    let ansColumn = matrixProblemModel.ansColumn!
+                    let ansMatrix = matrixProblemModel.ansMatrix!
+                    
+                    var num: MatrixValue = .init(0)
+                    for slide in 0..<j {
+                        num = num + matrixProblemModel.matrices[0].matrix[ansRow][slide] * matrixProblemModel.matrices[1].matrix[slide][ansColumn]
+                    }
+                    
+                    #expect(num == matrixProblemModel.ansMatrix!.matrix[ansRow][ansColumn])
+                }
             }
         }
     }
