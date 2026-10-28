@@ -21,6 +21,8 @@ struct MatrixModelTest {
             }
         }
     }
+    
+    
 }
 
 struct MatrixProblemModelTest {
@@ -98,16 +100,17 @@ struct MatrixProblemModelTest {
                     #expect(matrixProblemModel.ansMatrix != nil)
                     
                     #expect(matrixProblemModel.ansRow != nil && matrixProblemModel.ansColumn != nil)
-                    let ansRow = matrixProblemModel.ansRow!
-                    let ansColumn = matrixProblemModel.ansColumn!
-                    let ansMatrix = matrixProblemModel.ansMatrix!
                     
-                    var num: MatrixValue = .init(0)
-                    for slide in 0..<j {
-                        num = num + matrixProblemModel.matrices[0].matrix[ansRow][slide] * matrixProblemModel.matrices[1].matrix[slide][ansColumn]
+                    
+                    for ansi in 0..<i {
+                        for ansj in 0..<k {
+                            var num: MatrixValue = .init(0)
+                            for slide in 0..<j {
+                                num = num + matrixProblemModel.matrices[0].matrix[ansi][slide] * matrixProblemModel.matrices[1].matrix[slide][ansj]
+                            }
+                            #expect(num == matrixProblemModel.ansMatrix!.matrix[ansi][ansj])
+                        }
                     }
-                    
-                    #expect(num == matrixProblemModel.ansMatrix!.matrix[ansRow][ansColumn])
                 }
             }
         }

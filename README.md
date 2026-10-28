@@ -10,6 +10,7 @@
 </p>
 <p align="center">
 <a href="https://okiba-dev.com/apps/102"><img src="https://okiba-dev.com/apps/102/badge.svg" alt="OKIBA に掲載中" height="28"></a>
+<a href="https://tsukutta.app/apps/13601752-2fc0-442b-b43e-dab282cf4566"><img src="https://tsukutta.app/api/badge/13601752-2fc0-442b-b43e-dab282cf4566?lang=ja" alt="Tsukuttaに掲載中" width="200" height="40"></a>
 </p>
 
 ## Overview
