@@ -210,8 +210,8 @@ struct ContentView: View {
                     
                     if contentViewModel.isKeyboard {
                         NumberPadView("submit", text: $contentViewModel.userInput, action: {            Task {
-                            await contentViewModel.checkAnswer()
-                        }
+                                await contentViewModel.checkAnswer()
+                            }
                         })
                     } else {
                         MemoView(memoView: $memoView, isKeyboard: $contentViewModel.isKeyboard)

@@ -37,7 +37,6 @@ extension ContentViewModel {
             self.matrixProblem2 = MatrixProblemModel.generate()
         }
         userInput = ""
-        inputError = nil
     }
 
     // 行列生成時の処理を担当。
@@ -50,6 +49,5 @@ extension ContentViewModel {
             }
         }
         userInput = ""
-        inputError = nil
     }
 }
