@@ -17,7 +17,112 @@ extension Array {
     }
 }
 
-
+struct ProblemView: View {
+    @Binding var contentViewModel: ContentViewModel
+    var body: some View {
+        ZStack {
+            // 一つ目
+            VStack {
+                if let problem = contentViewModel.matrixProblem1 {
+                    switch problem.problemType {
+                    case .add, .sub, .mul:
+                        HStack(spacing: 0) {
+                            MatrixGridView(matrix: problem.matrices[0], matrixType: .normal)
+                            
+                            OperatorText(type: problem.problemType)
+                            
+                            MatrixGridView(matrix: problem.matrices[1], matrixType: .normal)
+                        }
+                        HStack {
+                            cellText("=")
+                            if let matrix = problem.ansMatrix, let ansX = problem.ansRow, let ansY = problem.ansColumn {
+                                MatrixAnswerView(
+                                    matrix: matrix,
+                                    answerX: ansX,
+                                    answerY: ansY,
+                                    isSuccess: $contentViewModel.isSuccess1
+                                )
+                            } else {
+                                ProgressView()
+                            }
+                        }
+                    case .determinant:
+                        MatrixGridView(
+                            matrix: problem.matrices[0],
+                            matrixType: .determinant,
+                        )
+                        HStack {
+                            cellText("=")
+                            DeterminantAnswerView(
+                                ansValue: contentViewModel.matrixProblem1!.ansValue,
+                                isSuccess: $contentViewModel.isSuccess1
+                            )
+                        }
+                    }
+                } else {
+                    ProgressView()
+                }
+            }
+            .opacity(contentViewModel.nowProblem == .problem1 ? 1 : 0)
+            .offset(y: contentViewModel.nowProblem == .problem1 ? 0 : 20)
+            
+            // 二つ目
+            VStack {
+                if let problem = contentViewModel.matrixProblem2 {
+                    
+                    switch problem.problemType {
+                    case .add, .sub, .mul:
+                        HStack(spacing: 0) {
+                            MatrixGridView(
+                                matrix: problem.matrices[0],
+                                matrixType: .normal
+                            )
+                            
+                            OperatorText(type: problem.problemType)
+                            
+                            MatrixGridView(
+                                matrix: problem.matrices[1],
+                                matrixType: .normal
+                            )
+                        }
+                        HStack {
+                            cellText("=")
+                            if let matrix = problem.ansMatrix, let ansX = problem.ansRow, let ansY = problem.ansColumn {
+                                MatrixAnswerView(
+                                    matrix: matrix,
+                                    answerX: ansX,
+                                    answerY: ansY,
+                                    isSuccess: $contentViewModel.isSuccess2
+                                )
+                            } else {
+                                ProgressView()
+                            }
+                        }
+                        
+                    case .determinant:
+                        MatrixGridView(
+                            matrix: problem.matrices[0],
+                            matrixType: .determinant
+                        )
+                        HStack {
+                            cellText("=")
+                            DeterminantAnswerView(
+                                ansValue: contentViewModel.matrixProblem2!.ansValue,
+                                isSuccess: $contentViewModel.isSuccess2
+                            )
+                        }
+                        
+                    }
+                    
+                } else {
+                    ProgressView()
+                }
+            }
+            .opacity(contentViewModel.nowProblem == .problem2 ? 1 : 0)
+            .offset(y: contentViewModel.nowProblem == .problem2 ? 0 : 20)
+        }
+    }
+}
 
 struct ContentView: View {
     @State var contentViewModel: ContentViewModel = .init()
@@ -38,94 +143,16 @@ struct ContentView: View {
                 BubbleBackgroundView(isActive: $contentViewModel.isBubbleAnimation)
                 VStack(spacing: 0) {
                     Group {
-                        //                    ScrollView {
-                        VStack{
-                            VStack {
-                                ZStack {
-                                    // 一つ目
-                                    VStack {
-                                        if let problem = contentViewModel.matrixProblem1 {
-                                            switch problem.problemType {
-                                            case .add, .sub, .mul:
-                                                HStack(spacing: 0) {
-                                                    MatrixGridView(matrix: problem.matrices[0])
-                                                    
-                                                    OperatorText(type: problem.problemType)
-                                                    
-                                                    MatrixGridView(matrix: problem.matrices[1])
-                                                }
-                                                HStack {
-                                                    cellText("=")
-                                                    if let matrix = problem.ansMatrix, let ansX = problem.ansRow, let ansY = problem.ansColumn {
-                                                        MatrixAnswerView(
-                                                            matrix: matrix,
-                                                            answerX: ansX,
-                                                            answerY: ansY,
-                                                            isSuccess: $contentViewModel.isSuccess1
-                                                        )
-                                                    } else {
-                                                        ProgressView()
-                                                    }
-                                                }
-                                                
-                                            }
-                                        } else {
-                                            ProgressView()
-                                        }
-                                    }
-                                    .opacity(contentViewModel.nowProblem == .problem1 ? 1 : 0)
-                                    .offset(y: contentViewModel.nowProblem == .problem1 ? 0 : 20)
-                                    
-                                    // 二つ目
-                                    VStack {
-                                        if let problem = contentViewModel.matrixProblem2 {
-                                            
-                                            switch problem.problemType {
-                                            case .add, .sub, .mul:
-                                                HStack(spacing: 0) {
-                                                    MatrixGridView(matrix: problem.matrices[0])
-                                                    
-                                                    OperatorText(type: problem.problemType)
-                                                    
-                                                    MatrixGridView(matrix: problem.matrices[1])
-                                                }
-                                                HStack {
-                                                    cellText("=")
-                                                    if let matrix = problem.ansMatrix, let ansX = problem.ansRow, let ansY = problem.ansColumn {
-                                                        MatrixAnswerView(
-                                                            matrix: matrix,
-                                                            answerX: ansX,
-                                                            answerY: ansY,
-                                                            isSuccess: $contentViewModel.isSuccess2
-                                                        )
-                                                    } else {
-                                                        ProgressView()
-                                                    }
-                                                }
-                                                
-                                            }
-                                            
-                                        } else {
-                                            ProgressView()
-                                        }
-                                    }
-                                    .opacity(contentViewModel.nowProblem == .problem2 ? 1 : 0)
-                                    .offset(y: contentViewModel.nowProblem == .problem2 ? 0 : 20)
-                                }
-                            }
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            //                        .particleEffect(trigger: contentViewModel.isSuccess)
-                            .overlay(alignment: .top) {
-                                VStack {
-//                                    ProgressView(value: min(Double(contentViewModel.combo)/30.0, 1.0))
-//                                        .tint(contentViewModel.combo >= 30 ? .yellow : .blue)
-//                                        .frame(width: 200)
-//                                        .animation(.easeOut, value: contentViewModel.combo)
-                                    Text("\(contentViewModel.problemTypeString)")
-                                        .foregroundStyle(.gray)
-                                }
-                            }
+                        VStack {
+                            ProblemView(contentViewModel: $contentViewModel)
                             Rectangle().fill(.clear).frame(width: 10, height: 20)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .overlay(alignment: .top) {
+                            VStack {
+                                Text("\(contentViewModel.problemTypeString)")
+                                    .foregroundStyle(.gray)
+                            }
                         }
                         .overlay(alignment: .bottom) {
                             HStack {
@@ -178,6 +205,8 @@ struct ContentView: View {
                         
                     }
                     .transition(.opacity)
+                    
+                    
                     
                     if contentViewModel.isKeyboard {
                         NumberPadView("submit", text: $contentViewModel.userInput, action: {            Task {
@@ -253,7 +282,7 @@ struct ContentView: View {
                             Text("combo")
                         }
                         .fixedSize(horizontal: true, vertical: false)
-
+                        
                         
                     }
                     .sharedBackgroundVisibility(.hidden)
@@ -297,11 +326,6 @@ struct ContentView: View {
                             Image(systemName: "info")
                         }
                     }
-//                    ToolbarItem(placement: .principal) {
-//
-//                            
-//                    }
-//                    .sharedBackgroundVisibility(.hidden)
                 }
                 .navigationDestination(for: ExplanationDestination.self) { destination in
                     switch destination {
@@ -322,7 +346,7 @@ struct ContentView: View {
 
 
 struct SubButtonStyle: ButtonStyle {
-//    let onTouchDown: () -> Void
+    //    let onTouchDown: () -> Void
     let onTouchUp: () -> Void
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -338,10 +362,6 @@ struct SubButtonStyle: ButtonStyle {
                 }
             }
     }
-}
-
-func storeData() {
-    
 }
 
 struct OperatorText: View {

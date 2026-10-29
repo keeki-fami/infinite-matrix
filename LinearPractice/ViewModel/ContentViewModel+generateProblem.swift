@@ -19,6 +19,8 @@ extension ContentViewModel {
                 return "行列の引き算"
             case .mul:
                 return "行列の掛け算"
+            case .determinant:
+                return "行列式"
             @unknown default:
                 return ""
                 

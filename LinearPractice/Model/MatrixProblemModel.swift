@@ -9,6 +9,7 @@ enum ProblemType: CaseIterable {
     case add
     case sub
     case mul
+    case determinant
 }
 
 struct MatrixProblemModel: Identifiable {
@@ -16,6 +17,7 @@ struct MatrixProblemModel: Identifiable {
     var problemType: ProblemType
     var matrices: [MatrixModel]
     var ansMatrix: MatrixModel?
+    var ansValue: MatrixValue?
     var ansRow: Int?
     var ansColumn: Int?
     var isSuccess = false
@@ -34,10 +36,10 @@ struct MatrixProblemModel: Identifiable {
             preconditionFailure("At least one problem type must be available.")
         }
 
-        let leftRows: Int
-        let leftColumns: Int
-        let rightRows: Int
-        let rightColumns: Int
+        var leftRows: Int = 0
+        var leftColumns: Int = 0
+        var rightRows: Int = 0
+        var rightColumns: Int = 0
 
         // 次数による行数, 列数生成
         switch problemType {
@@ -61,14 +63,28 @@ struct MatrixProblemModel: Identifiable {
             leftColumns = sharedDimension
             rightRows = sharedDimension
             rightColumns = Int.random(in: 1...3)
+        case .determinant:
+            leftRows = 2
+            leftColumns = leftRows
+        }
+        
+        var generatedMatrices: [MatrixModel] = .init()
+        if problemType == .determinant {
+            generatedMatrices.append(
+                MatrixModel(row: leftRows, column: leftColumns)
+            )
+        } else {
+            generatedMatrices.append(
+                MatrixModel(row: leftRows, column: leftColumns)
+            )
+            generatedMatrices.append(
+                MatrixModel(row: rightRows, column: rightColumns)
+            )
         }
         
         var problem = MatrixProblemModel(
             problemType: problemType,
-            matricies: [
-                MatrixModel(row: leftRows, column: leftColumns),
-                MatrixModel(row: rightRows, column: rightColumns)
-            ],
+            matricies: generatedMatrices
         )
         
         problem.genAnswer()
@@ -76,9 +92,11 @@ struct MatrixProblemModel: Identifiable {
     }
 
     mutating func genAnswer() {
-        var answer: [[Int]]
+        var answer: [[Int]] = .init()
+        var ansValue: MatrixValue = .init(0)
         
         print(problemType)
+        
 
         switch problemType {
         case .add:
@@ -161,26 +179,70 @@ struct MatrixProblemModel: Identifiable {
                     answer[i][j] = num
                 }
             }
+        case .determinant:
+            let matrix = matrices[0]
+            switch matrix.row {
+            case 2:
+                var num1: MatrixValue = .init(0)
+                var num2: MatrixValue = .init(0)
+                num1 = matrix.matrix[0][0] * matrix.matrix[1][1]
+                num2 = matrix.matrix[0][1] * matrix.matrix[1][0]
+                ansValue = num1 - num2
+            case 3:
+                var (h, i, j, k, l, m) = (MatrixValue(0), MatrixValue(0), MatrixValue(0), MatrixValue(0), MatrixValue(0), MatrixValue(0))
+                h = matrix.matrix[0][0]*matrix.matrix[1][1]*matrix.matrix[2][2]
+                i = matrix.matrix[1][0]*matrix.matrix[2][1]*matrix.matrix[0][2]
+                j = matrix.matrix[2][0]*matrix.matrix[0][1]*matrix.matrix[1][2]
+                
+                k = matrix.matrix[0][2]*matrix.matrix[1][1]*matrix.matrix[2][0]
+                l = matrix.matrix[0][0]*matrix.matrix[1][2]*matrix.matrix[2][1]
+                m = matrix.matrix[2][2]*matrix.matrix[0][1]*matrix.matrix[1][0]
+                
+                ansValue = (h+i+j)-(k+l+m)
+            default:
+                ansValue = .init(0)
+            }
         }
 
-        self.ansMatrix = MatrixModel(matrix: answer)
-        self.ansRow = Int.random(in: 0..<(ansMatrix!.row))
-        self.ansColumn = Int.random(in: 0..<ansMatrix!.column)
+        self.ansMatrix = nil
+        self.ansColumn = nil
+        self.ansRow = nil
+        self.ansValue = nil
+        
+        if problemType == .determinant {
+            self.ansValue = ansValue
+        } else {
+            self.ansMatrix = MatrixModel(matrix: answer)
+            self.ansRow = Int.random(in: 0..<(ansMatrix!.row))
+            self.ansColumn = Int.random(in: 0..<ansMatrix!.column)
+        }
         
         
     }
 
     func checkAnswer(answer: Int) -> Bool {
-        precondition(
-            ansRow != nil && ansColumn != nil,
-            "答えの行, 列が指定されていません。"
-        )
         
-        precondition(
-            ansMatrix != nil && ansMatrix!.row >= ansRow! && ansMatrix!.column >= ansColumn!,
-            "解答の行列が指定されていません。"
-        )
-        return ansMatrix!.matrix[ansRow!][ansColumn!] == answer
+        if problemType == .add || problemType == .sub || problemType == .mul {
+            precondition(
+                ansRow != nil && ansColumn != nil,
+                "答えの行, 列が指定されていません。"
+            )
+            precondition(
+                problemType != .determinant && ansMatrix != nil && ansMatrix!.row >= ansRow! && ansMatrix!.column >= ansColumn!,
+                "解答の行列が指定されていません。"
+            )
+        } else {
+                precondition(
+                    problemType == .determinant && ansValue != nil,
+                    "行列式の回答が指定されていません。"
+                )
+        }
+        switch problemType {
+        case .determinant:
+            return ansValue! == answer
+        case .add, .sub, .mul:
+            return ansMatrix!.matrix[ansRow!][ansColumn!] == answer
+        }
     }
 
     private func isRectangular(_ matrix: [[Int]]) -> Bool {
