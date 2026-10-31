@@ -16,13 +16,18 @@ extension MatrixProblemModel: Identifiable {}
 
 
 struct MatrixProblemModel {
+    // Identifiable
     var id: String
+    
     var problemType: ProblemType
     var matrices: [MatrixModel]
+    
     var ansMatrix: MatrixModel?
     var ansValue: MatrixValue?
     var ansRow: Int?
     var ansColumn: Int?
+    
+    // CheckAnswer
     var isSuccess = false
     
     init(problemType: ProblemType, matricies: [MatrixModel], ansMatrix: MatrixModel? = nil, ansRow: Int? = nil, ansColumn: Int? = nil) {
