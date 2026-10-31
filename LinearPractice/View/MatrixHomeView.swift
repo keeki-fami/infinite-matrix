@@ -7,19 +7,30 @@
 
 import SwiftUI
 
+enum MatrixType {
+    case normal
+    case determinant
+}
+
 // View: 行列の表示
 struct MatrixGridView: View {
     let matrix: MatrixModel
+    let matrixType: MatrixType
     @State var hSize: CGFloat = 0
     var body: some View {
         HStack {
-            Image("left2")
-                .resizable()
-                .frame(width: 10, height: hSize)
+            if matrixType == .normal {
+                Image("left2")
+                    .resizable()
+                    .frame(width: 10, height: hSize)
+            } else {
+                Rectangle()
+                    .frame(width: 1, height: hSize)
+            }
             VStack(spacing: 4) {
                 ForEach(matrix.matrix, id: \.self) { row in
                     HStack (spacing: 4) {
-                        ForEach(row, id: \.self) { num in
+                        ForEach(row, id: \.id) { num in
                             cellText("\(num.value)")
                         }
                     }
@@ -38,9 +49,14 @@ struct MatrixGridView: View {
                         hSize = geometry.size.height
                     }
             })
-            Image("right2")
-                .resizable()
-                .frame(width: 10, height: hSize)
+            if matrixType == .normal {
+                Image("right2")
+                    .resizable()
+                    .frame(width: 10, height: hSize)
+            } else {
+                Rectangle()
+                    .frame(width: 1, height: hSize)
+            }
         }
     }
 }
@@ -52,6 +68,26 @@ func cellText(_ text: String) -> some View {
         .frame(width: 30, height: 30)
 }
 
+struct DeterminantAnswerView: View {
+    let ansValue: MatrixValue?
+    @Binding var isSuccess: Bool
+    @State private var point: CGPoint = .init()
+    var body: some View {
+        Group {
+            if !isSuccess {
+                cellText("?")
+                    .background(
+                        Color.yellow
+                    )
+            } else {
+                if ansValue != nil {
+                    cellText("\(ansValue!.value)")
+                }
+            }
+        }
+        .particleEffect(trigger: isSuccess)
+    }
+}
 // View: 行列の回答の表示
 struct MatrixAnswerView: View {
     let matrix: MatrixModel

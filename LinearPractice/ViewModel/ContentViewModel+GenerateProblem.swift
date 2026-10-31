@@ -19,6 +19,8 @@ extension ContentViewModel {
                 return "行列の引き算"
             case .mul:
                 return "行列の掛け算"
+            case .determinant:
+                return "行列式"
             @unknown default:
                 return ""
                 
@@ -35,7 +37,6 @@ extension ContentViewModel {
             self.matrixProblem2 = MatrixProblemModel.generate()
         }
         userInput = ""
-        inputError = nil
     }
 
     // 行列生成時の処理を担当。
@@ -48,6 +49,5 @@ extension ContentViewModel {
             }
         }
         userInput = ""
-        inputError = nil
     }
 }

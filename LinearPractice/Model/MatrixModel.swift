@@ -5,7 +5,7 @@
 
 import Foundation
 
-
+// MARK: 行列の成分を表す。
 // ForEachで同一の値を列挙するための構造体
 // Intとの比較を許可する。
 struct MatrixValue: Identifiable, Hashable {
@@ -43,6 +43,7 @@ struct MatrixValue: Identifiable, Hashable {
     }
 }
 
+// MARK: 行列あるいは行列式を表す
 struct MatrixModel: Identifiable {
     var id = UUID().uuidString
     var matrix: [[MatrixValue]]
