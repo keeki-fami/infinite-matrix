@@ -124,10 +124,16 @@ struct ProblemView: View {
     }
 }
 
+enum SettingDestination: Hashable {
+    case home
+    case problemType
+}
+
 struct ContentView: View {
     @State var contentViewModel: ContentViewModel = .init()
     @State private var memoView = PKCanvasView()
     @State private var navigationPath = NavigationPath()
+    @Environment(SettingViewModel.self) var settingViewModel
     
     @AppStorage("failure") var failure: Int = 0
     @AppStorage("success") var success: Int = 0
@@ -209,7 +215,8 @@ struct ContentView: View {
                     
                     
                     if contentViewModel.isKeyboard {
-                        NumberPadView("submit", text: $contentViewModel.userInput, action: {            Task {
+                        NumberPadView("submit", text: $contentViewModel.userInput, isHapnic: settingViewModel.isOn, action: {
+                            Task {
                                 await contentViewModel.checkAnswer()
                             }
                         })
@@ -272,6 +279,8 @@ struct ContentView: View {
                     } else {
                         contentViewModel.appear()
                     }
+                    
+                    settingViewModel.fetchProblemType()
                 }
                 .toolbar{
                     ToolbarItem(placement: .topBarTrailing) {
@@ -295,6 +304,7 @@ struct ContentView: View {
                                         gameCenterManager.submitScore(contentViewModel.combo, to: "com.LinearPractice.keekifami.WeeklyComboRanking")
                                         UserDefaults.standard.set(contentViewModel.success, forKey: "success")
                                         UserDefaults.standard.set(contentViewModel.combo, forKey: "combo")
+                                        
                                     }
                             }, label: {
                                 Label("プロフィール", systemImage: "person")
@@ -309,6 +319,12 @@ struct ContentView: View {
                                 navigationPath.append(ExplanationDestination.home)
                             } label: {
                                 Label("チュートリアル", systemImage: "book.pages")
+                            }
+                            
+                            Button {
+                                navigationPath.append(SettingDestination.home)
+                            } label : {
+                                Label("設定", systemImage: "gearshape")
                             }
                             
                             Button(action: {
@@ -327,6 +343,14 @@ struct ContentView: View {
                         }
                     }
                 }
+                .navigationDestination(for: SettingDestination.self) { destination in
+                    switch destination {
+                    case .home:
+                        SettingView()
+                    case .problemType:
+                        SettingProblemTypeView()
+                    }
+                }
                 .navigationDestination(for: ExplanationDestination.self) { destination in
                     switch destination {
                     case .home:
@@ -340,9 +364,7 @@ struct ContentView: View {
             }
         }
     }
-    
 }
-
 
 
 struct SubButtonStyle: ButtonStyle {

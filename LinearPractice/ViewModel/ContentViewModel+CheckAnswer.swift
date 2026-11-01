@@ -31,10 +31,11 @@ extension ContentViewModel {
                 self.isSuccess2 = true
             }
             
-            hapticGenerator = UINotificationFeedbackGenerator()
-            hapticGenerator?.prepare()
-            hapticGenerator?.notificationOccurred(.success)
-            hapticGenerator = nil
+            let haptics = UserDefaults.standard.bool(forKey: "isHaptics")
+            print(haptics)
+            if haptics {
+                handleHaptics()
+            }
             
             withAnimation(.easeOut(duration: 0.3)) {
                 combo += 1
@@ -71,5 +72,12 @@ extension ContentViewModel {
             self.userInput = ""
         }
 
+    }
+    
+    func handleHaptics() {
+        hapticGenerator = UINotificationFeedbackGenerator()
+        hapticGenerator?.prepare()
+        hapticGenerator?.notificationOccurred(.success)
+        hapticGenerator = nil
     }
 }

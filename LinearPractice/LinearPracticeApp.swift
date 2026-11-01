@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct LinearPracticeApp: App {
+    @State var settingViewModel = SettingViewModel()
     @AppStorage("initialLaunch") var initialLaunch: Bool = false
     var body: some Scene {
         WindowGroup {
@@ -18,6 +19,7 @@ struct LinearPracticeApp: App {
                     OnboardingView()
                 }
             }
+            .environment(self.settingViewModel)
         }
     }
 }
