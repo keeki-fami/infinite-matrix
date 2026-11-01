@@ -39,6 +39,7 @@ struct SettingView: View {
 
 struct SettingProblemTypeView: View {
     @Environment(SettingViewModel.self) var settingViewModel
+    @Environment(ContentViewModel.self) var contentViewModel
     @Environment(\.dismiss) var dismiss
     var body: some View {
         @Bindable var setting = settingViewModel
@@ -51,11 +52,15 @@ struct SettingProblemTypeView: View {
             }
             Button("変更する") {
                 settingViewModel.storeProblemType()
+                if settingViewModel.isChanged() {
+                    contentViewModel.initGenerate()
+                }
                 dismiss()
             }
         }
         .onAppear() {
             settingViewModel.fetchProblemType()
+            settingViewModel.setOldState()
         }
     }
 }
@@ -71,6 +76,11 @@ class SettingViewModel {
     var mul = true
     var determinant = true
     
+    var oldadd = true
+    var oldsub = true
+    var oldmul = true
+    var olddet = true
+    
     var dic: [ProblemType: Bool] = [
         .add: true,
         .sub: true,
@@ -78,13 +88,23 @@ class SettingViewModel {
         .determinant: true
     ]
     
+    func setOldState() {
+        self.oldadd = add
+        self.oldsub = sub
+        self.oldmul = mul
+        self.olddet = determinant
+    }
+    
+    func isChanged() -> Bool {
+        return !(oldadd == add && oldsub == sub && oldmul == mul && olddet == determinant)
+    }
+    
 }
 
 
 extension SettingViewModel {
     
     func storeProblemType() {
-        
         do {
             dic[.add] = add
             dic[.sub] = sub

@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/keeki-fami/NumberPadView",
       "state" : {
-        "revision" : "066fd92de225fb43964ccd764b47b7b2458090df",
-        "version" : "1.2.1"
+        "revision" : "5ff4900e70b092a89127da3952bc14dd96c9cce0",
+        "version" : "1.2.3"
       }
     },
     {

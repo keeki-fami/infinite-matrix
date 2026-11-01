@@ -18,8 +18,11 @@ extension Array {
 }
 
 struct ProblemView: View {
-    @Binding var contentViewModel: ContentViewModel
+    @Environment(ContentViewModel.self) var contentViewModel
+
     var body: some View {
+        @Bindable var contentViewModel = contentViewModel
+
         ZStack {
             // 一つ目
             VStack {
@@ -130,9 +133,9 @@ enum SettingDestination: Hashable {
 }
 
 struct ContentView: View {
-    @State var contentViewModel: ContentViewModel = .init()
     @State private var memoView = PKCanvasView()
     @State private var navigationPath = NavigationPath()
+    @Environment(ContentViewModel.self) var contentViewModel
     @Environment(SettingViewModel.self) var settingViewModel
     
     @AppStorage("failure") var failure: Int = 0
@@ -144,13 +147,15 @@ struct ContentView: View {
     @State var gameCenterManager = GameCenterManager.shared
     
     var body: some View {
+        @Bindable var contentViewModel = contentViewModel
+
         NavigationStack(path: $navigationPath) {
             ZStack {
                 BubbleBackgroundView(isActive: $contentViewModel.isBubbleAnimation)
                 VStack(spacing: 0) {
                     Group {
                         VStack {
-                            ProblemView(contentViewModel: $contentViewModel)
+                            ProblemView()
                             Rectangle().fill(.clear).frame(width: 10, height: 20)
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -215,7 +220,7 @@ struct ContentView: View {
                     
                     
                     if contentViewModel.isKeyboard {
-                        NumberPadView("submit", text: $contentViewModel.userInput, isHapnic: settingViewModel.isOn, action: {
+                        NumberPadView("submit", text: $contentViewModel.userInput, isHaptic: settingViewModel.isOn, action: {
                             Task {
                                 await contentViewModel.checkAnswer()
                             }
@@ -405,6 +410,8 @@ struct OperatorText: View {
 #if DEBUG
 #Preview {
     ContentView()
+        .environment(ContentViewModel())
+        .environment(SettingViewModel())
     //    buttonTest()
 }
 #endif
