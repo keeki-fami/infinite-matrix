@@ -50,18 +50,58 @@ struct SettingProblemTypeView: View {
                 Toggle("掛け算", isOn: $setting.mul)
                 Toggle("行列式", isOn: $setting.determinant)
             }
-            Button("変更する") {
-                settingViewModel.storeProblemType()
-                if settingViewModel.isChanged() {
-                    contentViewModel.initGenerate()
+            .overlay(alignment: .bottom) {
+                if settingViewModel.isChanged {
+                    Button(action: {}, label: {
+                        ZStack {
+                            Rectangle()
+                                .fill(.blue)
+                            Text("変更する")
+                                .foregroundStyle(.white)
+                        }
+                    })
+                    .frame(width: 300, height: 50)
+                    .buttonStyle(NumberButtonStyle(onTouchDown: {}, onTouchUp: {
+                        settingViewModel.storeProblemType()
+                        contentViewModel.initGenerate()
+                        dismiss()
+                    }))
+                } else {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color(red: 217/255, green: 217/255, blue: 217/255))
+                        Text("変更する")
+                            .foregroundStyle(.white)
+                    }
+                    .frame(width: 300, height: 50)
                 }
-                dismiss()
             }
         }
         .onAppear() {
             settingViewModel.fetchProblemType()
             settingViewModel.setOldState()
         }
+    }
+}
+
+struct NumberButtonStyle: ButtonStyle {
+    let onTouchDown: () -> Void
+    let onTouchUp: () -> Void
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(Color(red: 217/255, green: 217/255, blue: 217/255))
+            .foregroundColor(.black)
+            .clipShape(
+                RoundedRectangle(cornerRadius: 5)
+            )
+            .shadow(color: .black.opacity( configuration.isPressed ? 0 : 0.5 ), radius: 1, x: 0, y: 2)
+            .onChange(of: configuration.isPressed) {
+                if $1 {
+                    onTouchDown()
+                } else {
+                    onTouchUp()
+                }
+            }
     }
 }
 
@@ -95,8 +135,8 @@ class SettingViewModel {
         self.olddet = determinant
     }
     
-    func isChanged() -> Bool {
-        return !(oldadd == add && oldsub == sub && oldmul == mul && olddet == determinant)
+    var isChanged: Bool {
+        !(oldadd == add && oldsub == sub && oldmul == mul && olddet == determinant)
     }
     
 }
